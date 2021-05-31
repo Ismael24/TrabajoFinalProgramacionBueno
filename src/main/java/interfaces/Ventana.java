@@ -10,6 +10,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
+import clases.Monedero;
 import clases.Usuario;
 import excepciones.NombreVacioException;
 
@@ -23,7 +24,9 @@ public class Ventana extends JFrame{
 	private MonederoUsuario pantallaMonederoUsuario;
 	private PantallaTienda pantallaTienda;
 	
+	
 	protected Usuario usuarioLogado;
+	protected Monedero monederoActual;
 	
 	public Ventana() {
 		this.setSize(350,400);
@@ -104,6 +107,18 @@ public class Ventana extends JFrame{
 		}
 		this.setContentPane(this.pantallaMonederoUsuario);
 		this.pantallaMonederoUsuario.setVisible(true);
+	}
+	
+	public void actualizarPantallaMonedero(){
+		if(this.pantallaMonederoUsuario==null) {
+			this.pantallaMonederoUsuario=new MonederoUsuario(this);
+		}
+		if(this.pantallaMonederoUsuario!=null) {
+			this.pantallaMonederoUsuario.setVisible(false);
+		}
+		this.setContentPane(this.pantallaMonederoUsuario);
+		this.pantallaMonederoUsuario.setVisible(true);
+		
 	}
 	
 	public void irAPantallaTienda() {

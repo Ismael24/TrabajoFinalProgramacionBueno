@@ -58,39 +58,47 @@ public class PantallaRegistro extends JPanel {
 	private JTextField campoUsuario;
 	
 	public PantallaRegistro(Ventana v) {
+		setBackground(new Color(0, 0, 51));
 		this.ventana=v;
 		this.setSize(350,400);
 		setLayout(new BorderLayout(0, 0));
 		
-		JLabel titulo = new JLabel("Registrar Usuario");
-		titulo.setForeground(new Color(46, 139, 87));
+		JLabel titulo = new JLabel("DropGames");
+		titulo.setBackground(new Color(0, 0, 51));
+		titulo.setForeground(Color.LIGHT_GRAY);
 		titulo.setHorizontalAlignment(SwingConstants.CENTER);
-		titulo.setFont(new Font("Arial", Font.BOLD, 22));
+		titulo.setFont(new Font("Yu Gothic Medium", Font.BOLD, 33));
 		add(titulo, BorderLayout.NORTH);
 		
 		final JPanel panelCentral = new JPanel();
+		panelCentral.setBackground(new Color(153, 102, 204));
 		add(panelCentral, BorderLayout.CENTER);
 		panelCentral.setLayout(null);
 		
 		campoAlias = new JTextField();
-		campoAlias.setBounds(173, 86, 86, 20);
+		campoAlias.setBackground(new Color(153, 153, 204));
+		campoAlias.setBounds(173, 86, 130, 20);
 		panelCentral.add(campoAlias);
 		campoAlias.setColumns(10);
 		
 		JLabel labelNombre = new JLabel("Nombre");
-		labelNombre.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		labelNombre.setBounds(47, 37, 53, 14);
+		labelNombre.setForeground(new Color(0, 0, 0));
+		labelNombre.setFont(new Font("Arial", Font.PLAIN, 18));
+		labelNombre.setBounds(10, 37, 76, 15);
 		panelCentral.add(labelNombre);
 		
 		JLabel labelAlias = new JLabel("Alias");
-		labelAlias.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		labelAlias.setForeground(new Color(0, 0, 0));
+		labelAlias.setFont(new Font("Arial", Font.PLAIN, 18));
 		labelAlias.setHorizontalAlignment(SwingConstants.TRAILING);
-		labelAlias.setBounds(47, 86, 29, 14);
+		labelAlias.setBounds(10, 87, 42, 14);
 		panelCentral.add(labelAlias);
 		
 		ButtonGroup grupoGenero=new ButtonGroup();
 		
 		final JButton botonRegistrarse = new JButton("Registrarse");
+		botonRegistrarse.setBackground(new Color(153, 153, 204));
+		
 		botonRegistrarse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -111,20 +119,30 @@ public class PantallaRegistro extends JPanel {
 				short saldoActual=0;
 				
 				try {
-					Monedero monederoActual=new Monedero(saldoActual,puntosActual);
+					ventana.monederoActual=new Monedero(saldoActual,puntosActual);
 					ventana.usuarioLogado=new Usuario(nombreUsuario,imgUsuario,aliasUsuario,
-							password,nivel,correoUsuario,estado,monederoActual);
+							password,nivel,correoUsuario,estado,ventana.monederoActual);
 					Connection c= DriverManager.getConnection(
 							"jdbc:mysql://127.0.0.1:3306/dropgames",
 							"root","admin");
 							Statement smt=c.createStatement();
-				
+							Statement smta=c.createStatement();
+							
+							
 							smt.executeUpdate(
 					"insert into usuario "
 	+ "values('"+nombreUsuario+"','"+aliasUsuario+"'"
-			+ ",'"+password+"','"+nivel+"','"+correoUsuario+"','"+estado+"','"+monederoActual+"');");
+			+ ",'"+password+"','"+nivel+"','"+correoUsuario+"','"+estado+"');");
+							
+							smta.executeUpdate(
+									"insert into monedero "
+					+ "values('"+saldoActual+"','"+puntosActual+"'"
+							+ ",'"+nombreUsuario+"');");
+				
 							
 							smt.close();
+							smta.close();
+							
 							c.close();
 					JOptionPane.showMessageDialog(ventana,
 							"Usuario registrado con éxito","Registro completo",
@@ -154,55 +172,47 @@ public class PantallaRegistro extends JPanel {
 				
 			}
 		});
-		botonRegistrarse.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				botonRegistrarse.setBackground(
-						new Color(200,0,0));
-				botonRegistrarse.setForeground(
-						new Color(255,255,255)
-						);
-			}
-			@Override
-			public void mouseExited(MouseEvent e) {
-				botonRegistrarse.setBackground(null);
-				botonRegistrarse.setForeground(null);
-			}
-		});
-		botonRegistrarse.setBounds(254, 301, 86, 63);
+		
+		botonRegistrarse.setBounds(173, 276, 107, 23);
 		panelCentral.add(botonRegistrarse);
 		
 		JButton botonVolver = new JButton("Volver");
+		botonVolver.setBackground(new Color(153, 153, 204));
 		botonVolver.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				ventana.irAPantallaInicioSesion();
 			}
 		});
-		botonVolver.setBounds(10, 301, 89, 63);
+		botonVolver.setBounds(64, 276, 89, 23);
 		panelCentral.add(botonVolver);
 		
 		JLabel labelPassword = new JLabel("Contrase\u00F1a");
-		labelPassword.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		labelPassword.setBounds(47, 130, 76, 13);
+		labelPassword.setForeground(new Color(0, 0, 0));
+		labelPassword.setFont(new Font("Arial", Font.PLAIN, 18));
+		labelPassword.setBounds(10, 128, 107, 15);
 		panelCentral.add(labelPassword);
 		
 		JLabel labelCorreo = new JLabel("Correo electr\u00F3nico");
-		labelCorreo.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		labelCorreo.setBounds(39, 182, 114, 13);
+		labelCorreo.setForeground(new Color(0, 0, 0));
+		labelCorreo.setFont(new Font("Arial", Font.PLAIN, 18));
+		labelCorreo.setBounds(10, 180, 155, 15);
 		panelCentral.add(labelCorreo);
 		
 		campoCorreo = new JTextField();
-		campoCorreo.setBounds(173, 180, 86, 20);
+		campoCorreo.setBackground(new Color(153, 153, 204));
+		campoCorreo.setBounds(173, 180, 130, 19);
 		panelCentral.add(campoCorreo);
 		campoCorreo.setColumns(10);
 		
 		campoPassword = new JPasswordField();
-		campoPassword.setBounds(173, 128, 86, 20);
+		campoPassword.setBackground(new Color(153, 153, 204));
+		campoPassword.setBounds(173, 127, 130, 20);
 		panelCentral.add(campoPassword);
 		
 		campoUsuario = new JTextField();
-		campoUsuario.setBounds(173, 36, 86, 20);
+		campoUsuario.setBackground(new Color(153, 153, 204));
+		campoUsuario.setBounds(173, 36, 130, 20);
 		panelCentral.add(campoUsuario);
 		campoUsuario.setColumns(10);
 

@@ -145,14 +145,10 @@ public class Usuario extends EntidadBasica {
 	}
 
 	public void setMonedero(Monedero monedero) {
+		
 		this.monedero = monedero;
 	}
-	public void añadirSaldo(short cantidad){
-		if((monedero.getSaldo()+cantidad)<32767) {
-		monedero.setSaldo((short)(monedero.getSaldo()+cantidad));
-		}
-		
-	}
+	
 	
 	
 	public void  comprarJuegos(float precioJuego, Juego juego){

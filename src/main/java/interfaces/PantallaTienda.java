@@ -37,15 +37,18 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.FlowLayout;
 import javax.swing.JScrollPane;
+import java.awt.Color;
+import javax.swing.border.BevelBorder;
 //pantalla de la tienda
 public class PantallaTienda extends JPanel{
 	private Ventana ventana;
 
 	public PantallaTienda(Ventana v) {
+		setBackground(new Color(0, 0, 51));
 		
 		this.ventana=v;
-		this.setSize(1200,1000);
-        this.setLocation(0, 0);
+		v.setSize(1000,450);;
+        v.setLocation(450, 200);
 		setLayout(new BorderLayout(0, 0));
 		
 		final HashMap<String,Juego> todosJuegos = new HashMap<>();
@@ -55,18 +58,24 @@ public class PantallaTienda extends JPanel{
 		
 		
 		
-		JLabel labelTitulotop = new JLabel("Juegos");
-		labelTitulotop.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		labelTitulotop.setHorizontalAlignment(SwingConstants.CENTER);
-		add(labelTitulotop, BorderLayout.NORTH);
+		JLabel labelDropGames = new JLabel("DropGames");
+		labelDropGames.setBackground(new Color(0, 0, 51));
+		labelDropGames.setForeground(Color.LIGHT_GRAY);
+		labelDropGames.setFont(new Font("Yu Gothic Medium", Font.BOLD, 33));
+		labelDropGames.setHorizontalAlignment(SwingConstants.CENTER);
+		add(labelDropGames, BorderLayout.NORTH);
 		
-		JLabel labelDropgames = new JLabel("Drop Games");
-		labelDropgames.setHorizontalAlignment(SwingConstants.CENTER);
-		labelDropgames.setFont(new Font("Tahoma", Font.PLAIN, 34));
-		add(labelDropgames, BorderLayout.SOUTH);
+		JLabel labelJuegos = new JLabel("Juegos");
+		labelJuegos.setBackground(new Color(0, 0, 51));
+		labelJuegos.setForeground(Color.LIGHT_GRAY);
+		labelJuegos.setHorizontalAlignment(SwingConstants.CENTER);
+		labelJuegos.setFont(new Font("Yu Gothic Medium", Font.BOLD, 33));
+		add(labelJuegos, BorderLayout.SOUTH);
 		
 		
 		JPanel panelListaJuegos = new JPanel();
+		panelListaJuegos.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		panelListaJuegos.setBackground(new Color(153, 102, 204));
 		panelListaJuegos.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 
@@ -112,6 +121,7 @@ public class PantallaTienda extends JPanel{
 				
 				
 				JButton botonComprarJuego = new JButton("Comprar");
+				botonComprarJuego.setBackground(new Color(153, 153, 204));
 				botonComprarJuego.addMouseListener(new MouseAdapter() {
 					@Override
 				
@@ -129,18 +139,44 @@ public class PantallaTienda extends JPanel{
 						}
 					}
 				});
-				panelJuego.add(botonComprarJuego, BorderLayout.SOUTH);
+				
+				
+				
+				panelJuego.add(botonComprarJuego, BorderLayout.NORTH);
+				
+				
+				
+				JPanel panelInferior = new JPanel();
+				panelInferior.setBackground(new Color(153, 102, 204));
+				panelJuego.add(panelInferior, BorderLayout.SOUTH);
+				
+				
+				JButton botonDeseados = new JButton("+");
+				botonDeseados.setBackground(new Color(153, 153, 204));
+				botonDeseados.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						JOptionPane.showMessageDialog(ventana,
+								"Se ha añadido a la lista de deseados",
+								"Deseados",
+								JOptionPane.INFORMATION_MESSAGE); 
+						 
+					}
+				});
+				panelInferior.add(botonDeseados, BorderLayout.WEST);
 				
 				JButton botonDetallesJuego = new JButton("Detalles");
+				botonDetallesJuego.setBackground(new Color(153, 153, 204));
 				botonDetallesJuego.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent e) {
 						JOptionPane.showMessageDialog(ventana,
+								"Precio: "+String.valueOf(juego.getPrecio())+"\n"+
 								juego.getDescripcion()+","+"\n"+
 								juego.getGenero().toString(),//+","+
 								//juego.getFechaLanzamiento().toString()+","+
 								//juego.getLenguaje().toString()+","+
-								//String.valueOf(juego.getPrecio())+","+
+								
 								//String.valueOf(juego.getValoracion())+","+
 								//String.valueOf(juego.getVecesValorado()),
 								"Todos los detalles",
@@ -148,11 +184,7 @@ public class PantallaTienda extends JPanel{
 						 
 					}
 				});
-				panelJuego.add(botonDetallesJuego, BorderLayout.NORTH);
-				
-				
-				
-
+				panelInferior.add(botonDetallesJuego, BorderLayout.EAST);
 				panelListaJuegos.add(panelJuego);
 				
 				

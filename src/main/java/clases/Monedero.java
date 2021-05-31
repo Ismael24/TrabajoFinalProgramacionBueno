@@ -3,7 +3,7 @@ package clases;
 public class Monedero {
 	private float saldo;
 	private short puntos;
-	public Monedero(short saldo, short puntos) {
+	public Monedero(float saldo, short puntos) {
 		super();
 		this.saldo = saldo;
 		this.puntos = puntos;

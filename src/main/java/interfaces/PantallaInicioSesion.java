@@ -27,6 +27,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import clases.Monedero;
 import clases.Usuario;
 import enumeraciones.Estado;
 import excepciones.AliasVacioException;
@@ -84,7 +85,7 @@ public class PantallaInicioSesion extends JPanel {
 		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\VSPC-SaltMirror\\Desktop\\com.ismael.trabajo.final.bueno\\imgs\\mando.png"));
-		lblNewLabel.setBounds(115, 121, 100, 94);
+		lblNewLabel.setBounds(125, 121, 100, 94);
 		panelCentral.add(lblNewLabel);
 		
 		
@@ -116,34 +117,45 @@ public class PantallaInicioSesion extends JPanel {
 "jdbc:mysql://127.0.0.1:3306/dropgames","root","admin"
 									);
 					Statement smt=conexion.createStatement();
-					//Statement smt=conexion.createStatement();
+					Statement smta=conexion.createStatement();
 					
 					ResultSet resultados=smt.executeQuery(
 							"select * from usuario where nombreUsuario='"+usuario+"' and "
 							+"password='"+password+"'"
 							);
-					/*ResultSet resultadoMonedero=smt.executeQuery(
-							"select * from monedero where nombreUsuario='"+usuario+"'"
-							);*/
+					
+					
 					if(resultados.next()) {
 						usuario= resultados.getString("nombreUsuario");
 						String alias= resultados.getString("aliasUsuario");
 						password= resultados.getString("password");
 						byte nivel= resultados.getByte("nivel");
 						String correo= resultados.getString("correoUsuario");
-						//float saldoMonedero= resultadoMonedero.getFloat("saldo");
-						//byte puntosMonedero= resultadoMonedero.getByte("puntos");
 						String estadoactual = resultados.getString("estado");
 						
+						
+						
+						
 						ventana.usuarioLogado = new Usuario(usuario,imgUsuario,alias,password,nivel,correo,Estado.fromString(estadoactual));
+						
 						JOptionPane.showMessageDialog(ventana, "Login Correcto","Éxito",JOptionPane.INFORMATION_MESSAGE);
 						ventana.irAPantallaInicial();
 					}else {
 						JOptionPane.showMessageDialog(ventana, "Login Incorrecto","Error",JOptionPane.ERROR_MESSAGE);
 						
 					}
+					ResultSet resultadoMonedero=smta.executeQuery(
+							"select * from monedero where nombreUsuario='"+usuario+"'"
+							);
+					if(resultadoMonedero.next()) {
+						
+						float saldoMonedero= resultadoMonedero.getFloat("saldo");
+						byte puntosMonedero= resultadoMonedero.getByte("puntos");
+						ventana.monederoActual=new Monedero(saldoMonedero,Short.valueOf(puntosMonedero));
+						}
 					
 					smt.close();
+					smta.close();
 					conexion.close();
 					
 					

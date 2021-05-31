@@ -6,9 +6,16 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
 import clases.Monedero;
+import clases.Usuario;
+import enumeraciones.Estado;
+import excepciones.AliasVacioException;
+import excepciones.CorreoVacioException;
+import excepciones.NombreVacioException;
+import excepciones.PasswordMuyCortaException;
 
 import java.awt.Font;
 import java.awt.Color;
@@ -17,7 +24,11 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class MonederoUsuario extends JPanel {
 	private Ventana ventana;
@@ -41,7 +52,7 @@ public class MonederoUsuario extends JPanel {
 		labelTitulo.setBackground(Color.PINK);
 		add(labelTitulo, BorderLayout.SOUTH);
 		
-		JPanel panel = new JPanel();
+		final JPanel panel = new JPanel();
 		panel.setForeground(new Color(0, 0, 0));
 		panel.setBackground(new Color(153, 102, 204));
 		add(panel, BorderLayout.CENTER);
@@ -58,25 +69,83 @@ public class MonederoUsuario extends JPanel {
 		panel.add(lblNewLabel_1);
 		
 		dineroAñadir = new JTextField();
+		dineroAñadir.setBackground(new Color(153, 153, 204));
 		dineroAñadir.setBounds(153, 150, 96, 19);
 		panel.add(dineroAñadir);
 		dineroAñadir.setColumns(10);
 		
-		//ResultSet resultSetMonedero = select monederoActual from usuario;
+		
 		
 		JButton botonPagar = new JButton("Pagar");
-		botonPagar.addMouseListener(new MouseAdapter() {
-			//@Override
-			//public void mouseClicked(MouseEvent e) {
-				//ventana.usuarioLogado.getMonedero().setSaldo((short)(ventana.usuarioLogado.getMonedero().getSaldo()+(Short.parseShort(dineroAñadir.getText()))));
-				//resultSetMonedero.updateInt("saldo", ventana.usuarioLogado.getMonedero().getSaldo());
-			//}
+		botonPagar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
 		});
-		botonPagar.setBounds(199, 179, 85, 21);
+		botonPagar.setBackground(new Color(153, 153, 204));
+		botonPagar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				
+				
+				try {
+					
+					ventana.monederoActual.setSaldo((float)((ventana.monederoActual.getSaldo())+(Float.parseFloat(dineroAñadir.getText()))));
+					Connection conexion=
+							DriverManager.getConnection(
+										"jdbc:mysql://127.0.0.1:3306/dropgames","root","admin"
+									);
+					
+					Statement smta=conexion.createStatement();
+					
+					
+					smta.executeUpdate(
+							"UPDATE monedero SET saldo = '"+ventana.monederoActual.getSaldo()+"' WHERE nombreUsuario = '"+ventana.usuarioLogado.getNombre()+"'");
+					
+					JLabel labelSaldoActual = new JLabel(String.valueOf(ventana.monederoActual.getSaldo()));
+					labelSaldoActual.setFont(new Font("Tahoma", Font.PLAIN, 15));
+					labelSaldoActual.setBounds(61, 16, 55, 14);
+					panel.add(labelSaldoActual);
+					
+					
+					
+					ventana.actualizarPantallaMonedero();
+					
+					smta.close();
+					conexion.close();
+					
+					
+					
+				} catch (SQLException e1) {
+					JOptionPane.showMessageDialog(ventana,e1.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+				}
+				
+				
+				
+				
+				
+			}
+		});
+		
+		botonPagar.setBounds(199, 179, 85, 26);
 		panel.add(botonPagar);
 		
-		JLabel labelSaldoActual = new JLabel(String.valueOf(ventana.usuarioLogado.getMonedero().getSaldo()));
-		labelSaldoActual.setBounds(59, 18, 55, 14);
+		JLabel labelSaldoActual = new JLabel(String.valueOf(ventana.monederoActual.getSaldo()));
+		labelSaldoActual.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		labelSaldoActual.setBounds(61, 16, 55, 14);
 		panel.add(labelSaldoActual);
+		
+		
+		JButton botonVolver = new JButton("Volver");
+		botonVolver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		botonVolver.setBackground(new Color(153, 153, 204));
+		botonVolver.setBounds(222, 12, 85, 26);
+		panel.add(botonVolver);
+		
+		
+		
 	}
 }
