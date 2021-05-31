@@ -87,7 +87,7 @@ public class MonederoUsuario extends JPanel {
 			public void mouseClicked(MouseEvent e) {
 				
 				
-				
+				//esto es un comentario para probar github
 				try {
 					
 					ventana.monederoActual.setSaldo((float)((ventana.monederoActual.getSaldo())+(Float.parseFloat(dineroAñadir.getText()))));
