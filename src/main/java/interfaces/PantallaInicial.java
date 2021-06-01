@@ -18,7 +18,9 @@ public class PantallaInicial extends JPanel {
 	public PantallaInicial(Ventana v) {
 		setBackground(new Color(0, 0, 51));
 		this.ventana=v;
-		this.setSize(350,400);
+		v.setSize(350,400);
+		
+		v.setResizable(false);
 		setLayout(new BorderLayout(0, 0));
 		
 		JLabel labelAccion = new JLabel("\u00BFA qu\u00E9 apartado deseas acceder?");

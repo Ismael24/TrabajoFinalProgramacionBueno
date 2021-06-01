@@ -46,6 +46,7 @@ public class PantallaInicioSesion extends JPanel {
 		
 		setBackground(new Color(0, 0, 51));
 		this.ventana=v;
+		v.setResizable(false);
 		this.setSize(350,400);
 		
 		setLayout(new BorderLayout(0, 0));

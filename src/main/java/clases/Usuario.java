@@ -153,7 +153,7 @@ public class Usuario extends EntidadBasica {
 	
 	public void  comprarJuegos(float precioJuego, Juego juego){
 		if(monedero.getSaldo()>=precioJuego) {
-			monedero.setSaldo((short)(monedero.getSaldo()-precioJuego));
+			monedero.setSaldo((float)(monedero.getSaldo()-precioJuego));
 			biblioteca.add(juego);
 			 
 		}

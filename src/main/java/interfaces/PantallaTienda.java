@@ -13,6 +13,7 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -39,6 +40,8 @@ import java.awt.FlowLayout;
 import javax.swing.JScrollPane;
 import java.awt.Color;
 import javax.swing.border.BevelBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 //pantalla de la tienda
 public class PantallaTienda extends JPanel{
 	private Ventana ventana;
@@ -47,12 +50,34 @@ public class PantallaTienda extends JPanel{
 		setBackground(new Color(0, 0, 51));
 		
 		this.ventana=v;
-		v.setSize(1000,450);;
-        v.setLocation(450, 200);
+		v.setSize(1300,450);
+		v.setResizable(false);
+        v.setLocation(300, 200);
 		setLayout(new BorderLayout(0, 0));
 		
 		final HashMap<String,Juego> todosJuegos = new HashMap<>();
+		
+		
 		BufferedImage imgCaratula = null;
+		
+		JPanel panel = new JPanel();
+		panel.setBorder(null);
+		panel.setBackground(new Color(153, 102, 204));
+		add(panel, BorderLayout.WEST);
+		
+		JButton botonVolver = new JButton("Volver");
+		botonVolver.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ventana.irAPantallaInicial();
+			}
+		});
+		botonVolver.setBackground(new Color(153, 153, 204));
+		botonVolver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		panel.add(botonVolver);
 		
 		
 		
@@ -74,7 +99,8 @@ public class PantallaTienda extends JPanel{
 		
 		
 		JPanel panelListaJuegos = new JPanel();
-		panelListaJuegos.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		panelListaJuegos.setBorder(null);
+		panelListaJuegos.setForeground(new Color(0, 0, 0));
 		panelListaJuegos.setBackground(new Color(153, 102, 204));
 		panelListaJuegos.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
@@ -131,10 +157,21 @@ public class PantallaTienda extends JPanel{
 									"Ya tienes este juego","Error",
 									JOptionPane.INFORMATION_MESSAGE);
 						}else {
-							ventana.usuarioLogado.comprarJuegos((float)(juego.getPrecio()), juego);
-							JOptionPane.showMessageDialog(ventana,
-									"Juego comprado con éxito","Juego añadido a la biblioteca",
-									JOptionPane.INFORMATION_MESSAGE); 
+							if(ventana.monederoActual.getSaldo()>=juego.getPrecio()) {
+								ventana.monederoActual.setSaldo((float)(ventana.monederoActual.getSaldo()-juego.getPrecio()));
+								ventana.usuarioLogado.getBiblioteca().add(juego);
+								JOptionPane.showMessageDialog(ventana,
+										"¡Que lo disfrutes!","Éxito",
+										JOptionPane.INFORMATION_MESSAGE);
+								
+							}else {
+								JOptionPane.showMessageDialog(ventana,
+										"No tienes saldo suficiente, acude a la zona usuario","Error",
+										JOptionPane.INFORMATION_MESSAGE);
+								
+							}
+							
+							
 							
 						}
 					}
@@ -173,12 +210,12 @@ public class PantallaTienda extends JPanel{
 						JOptionPane.showMessageDialog(ventana,
 								"Precio: "+String.valueOf(juego.getPrecio())+"\n"+
 								juego.getDescripcion()+","+"\n"+
-								juego.getGenero().toString(),//+","+
+								juego.getGenero().toString()+","+
 								//juego.getFechaLanzamiento().toString()+","+
 								//juego.getLenguaje().toString()+","+
 								
-								//String.valueOf(juego.getValoracion())+","+
-								//String.valueOf(juego.getVecesValorado()),
+								String.valueOf(juego.getValoracion())+","+
+								String.valueOf(juego.getVecesValorado()),
 								"Todos los detalles",
 								JOptionPane.INFORMATION_MESSAGE); 
 						 

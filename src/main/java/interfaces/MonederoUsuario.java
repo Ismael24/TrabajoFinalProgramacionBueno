@@ -120,7 +120,7 @@ public class MonederoUsuario extends JPanel {
 					JOptionPane.showMessageDialog(ventana,e1.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
 				}
 				
-				
+				//ventana.actualizarPantallaMonedero();
 				
 				
 				
@@ -139,6 +139,7 @@ public class MonederoUsuario extends JPanel {
 		JButton botonVolver = new JButton("Volver");
 		botonVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				ventana.irAZonaUsuario();
 			}
 		});
 		botonVolver.setBackground(new Color(153, 153, 204));

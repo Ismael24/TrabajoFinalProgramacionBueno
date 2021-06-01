@@ -23,6 +23,7 @@ public class Ventana extends JFrame{
 	private ZonaUsuario pantallaZonaUsuario;
 	private MonederoUsuario pantallaMonederoUsuario;
 	private PantallaTienda pantallaTienda;
+	private BibliotecaUsuario bibliotecaUsuario;
 	
 	
 	protected Usuario usuarioLogado;
@@ -83,6 +84,15 @@ public class Ventana extends JFrame{
 		if(this.pantallaRegistro!=null) {
 			this.pantallaRegistro.setVisible(false);
 		}
+		if(this.pantallaTienda!=null) {
+			this.pantallaTienda.setVisible(false);
+		}
+		
+		if(this.pantallaInicioSesion!=null) {
+			this.pantallaInicioSesion.setVisible(false);
+			
+		}
+		
 		this.setContentPane(this.pantallaInicial);
 		this.pantallaInicial.setVisible(true);
 	}
@@ -93,6 +103,12 @@ public class Ventana extends JFrame{
 		}
 		if(this.pantallaInicial!=null) {
 			this.pantallaInicial.setVisible(false);
+		}
+		if(this.bibliotecaUsuario!=null) {
+			this.bibliotecaUsuario.setVisible(false);
+		}
+		if(this.pantallaMonederoUsuario!=null) {
+			this.pantallaMonederoUsuario.setVisible(false);
 		}
 		this.setContentPane(this.pantallaZonaUsuario);
 		this.pantallaZonaUsuario.setVisible(true);
@@ -110,13 +126,7 @@ public class Ventana extends JFrame{
 	}
 	
 	public void actualizarPantallaMonedero(){
-		if(this.pantallaMonederoUsuario==null) {
-			this.pantallaMonederoUsuario=new MonederoUsuario(this);
-		}
-		if(this.pantallaMonederoUsuario!=null) {
-			this.pantallaMonederoUsuario.setVisible(false);
-		}
-		this.setContentPane(this.pantallaMonederoUsuario);
+		this.pantallaMonederoUsuario.setVisible(false);
 		this.pantallaMonederoUsuario.setVisible(true);
 		
 	}
