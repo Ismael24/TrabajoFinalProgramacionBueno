@@ -152,28 +152,57 @@ public class PantallaTienda extends JPanel{
 					@Override
 				
 					public void mouseClicked(MouseEvent e) {
-						if(ventana.usuarioLogado.getBiblioteca().contains(juego)) {
-							JOptionPane.showMessageDialog(ventana,
-									"Ya tienes este juego","Error",
-									JOptionPane.INFORMATION_MESSAGE);
-						}else {
-							if(ventana.monederoActual.getSaldo()>=juego.getPrecio()) {
-								ventana.monederoActual.setSaldo((float)(ventana.monederoActual.getSaldo()-juego.getPrecio()));
-								ventana.usuarioLogado.getBiblioteca().add(juego);
+						//if(ventana.usuarioLogado.getBiblioteca().contains(juego)) {
+							//JOptionPane.showMessageDialog(ventana,
+									//"Ya tienes este juego","Error",
+									//JOptionPane.INFORMATION_MESSAGE);
+						//}else {
+							//if(ventana.monederoActual.getSaldo()>=juego.getPrecio()) {
+								
+								try {
+									
+									ventana.monederoActual.setSaldo((float)(ventana.monederoActual.getSaldo()-juego.getPrecio()));
+									Connection conexion=
+											DriverManager.getConnection(
+														"jdbc:mysql://127.0.0.1:3306/dropgames","root","admin"
+													);
+									
+									Statement smta=conexion.createStatement();
+									
+									
+									smta.executeUpdate(
+											"UPDATE monedero SET saldo = '"+ventana.monederoActual.getSaldo()+"' WHERE nombreUsuario = '"+ventana.usuarioLogado.getNombre()+"'");
+									
+									
+									
+									
+									
+									
+									
+									smta.close();
+									conexion.close();
+									
+									
+									
+								} catch (SQLException e1) {
+									JOptionPane.showMessageDialog(ventana,e1.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+								}
+								//ventana.usuarioLogado.getBiblioteca().add(juego);
 								JOptionPane.showMessageDialog(ventana,
 										"¡Que lo disfrutes!","Éxito",
 										JOptionPane.INFORMATION_MESSAGE);
+									
 								
-							}else {
-								JOptionPane.showMessageDialog(ventana,
-										"No tienes saldo suficiente, acude a la zona usuario","Error",
-										JOptionPane.INFORMATION_MESSAGE);
+							//}else {
+								//JOptionPane.showMessageDialog(ventana,
+									//	"No tienes saldo suficiente, acude a la zona usuario","Error",
+								//		JOptionPane.INFORMATION_MESSAGE);
 								
-							}
+							//}
 							
 							
 							
-						}
+						//}
 					}
 				});
 				

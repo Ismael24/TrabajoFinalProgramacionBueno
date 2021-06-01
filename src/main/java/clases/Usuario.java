@@ -31,7 +31,7 @@ public class Usuario extends EntidadBasica {
 		this.setCorreo(correo);
 		this.estado = estado;
 		this.deseados = deseados;
-		this.biblioteca = biblioteca;
+		this.biblioteca = new HashSet<Juego>();
 		this.monedero = monedero;
 	}
 	
