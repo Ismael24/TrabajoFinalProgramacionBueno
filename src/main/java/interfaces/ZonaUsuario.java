@@ -16,6 +16,7 @@ import javax.swing.DefaultComboBoxModel;
 import enumeraciones.Estado;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.ImageIcon;
 
 public class ZonaUsuario extends JPanel {
 	private Ventana ventana;
@@ -45,7 +46,7 @@ public class ZonaUsuario extends JPanel {
 		panel.setLayout(null);
 		
 		JButton botonBiblioteca = new JButton("Biblioteca");
-		botonBiblioteca.setBounds(116, 90, 125, 125);
+		botonBiblioteca.setBounds(52, 119, 102, 35);
 		panel.add(botonBiblioteca);
 		
 		JButton botonAjustes = new JButton("Monedero");
@@ -59,7 +60,7 @@ public class ZonaUsuario extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		botonAjustes.setBounds(254, 232, 86, 66);
+		botonAjustes.setBounds(52, 195, 102, 35);
 		panel.add(botonAjustes);
 		
 		JButton botonDeseados = new JButton("Deseados");
@@ -67,7 +68,7 @@ public class ZonaUsuario extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		botonDeseados.setBounds(20, 232, 86, 66);
+		botonDeseados.setBounds(52, 157, 102, 35);
 		panel.add(botonDeseados);
 		
 		JLabel labelEstado = new JLabel("Estado");
@@ -77,9 +78,26 @@ public class ZonaUsuario extends JPanel {
 		
 		JComboBox comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(Estado.values()));
-		comboBox.setBounds(75, 7, 86, 21);
+		comboBox.setBounds(75, 7, 102, 21);
 		panel.add(comboBox);
+		
+		JButton botonVolver = new JButton("Volver");
+		botonVolver.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ventana.irAPantallaInicial();
+				
+			}
+		});
+		botonVolver.setBounds(230, 11, 89, 23);
+		panel.add(botonVolver);
+		
+		int aleatorio=0;
+		aleatorio = (int) (Math.random() *2);
+		
+		JLabel labelImgUsuario = new JLabel("");
+		labelImgUsuario.setIcon(new ImageIcon("C:\\Users\\VSPC-SaltMirror\\Desktop\\com.ismael.trabajo.final.bueno\\imgs\\avatar"+aleatorio.getString()+".png"));
+		labelImgUsuario.setBounds(178, 93, 110, 151);
+		panel.add(labelImgUsuario);
 	}
-	
-
 }

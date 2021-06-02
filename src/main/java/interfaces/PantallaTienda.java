@@ -50,12 +50,13 @@ public class PantallaTienda extends JPanel{
 		setBackground(new Color(0, 0, 51));
 		
 		this.ventana=v;
-		v.setSize(1300,450);
 		v.setResizable(false);
-        v.setLocation(300, 200);
 		setLayout(new BorderLayout(0, 0));
 		
 		final HashMap<String,Juego> todosJuegos = new HashMap<>();
+		final HashSet<Juego> adquirir = new HashSet<>();
+		
+		
 		
 		
 		BufferedImage imgCaratula = null;
@@ -90,7 +91,7 @@ public class PantallaTienda extends JPanel{
 		labelDropGames.setHorizontalAlignment(SwingConstants.CENTER);
 		add(labelDropGames, BorderLayout.NORTH);
 		
-		JLabel labelJuegos = new JLabel("Juegos");
+		JLabel labelJuegos = new JLabel("Tienda");
 		labelJuegos.setBackground(new Color(0, 0, 51));
 		labelJuegos.setForeground(Color.LIGHT_GRAY);
 		labelJuegos.setHorizontalAlignment(SwingConstants.CENTER);
@@ -152,15 +153,17 @@ public class PantallaTienda extends JPanel{
 					@Override
 				
 					public void mouseClicked(MouseEvent e) {
-						//if(ventana.usuarioLogado.getBiblioteca().contains(juego)) {
-							//JOptionPane.showMessageDialog(ventana,
-									//"Ya tienes este juego","Error",
-									//JOptionPane.INFORMATION_MESSAGE);
-						//}else {
-							//if(ventana.monederoActual.getSaldo()>=juego.getPrecio()) {
+						
+							
 								
 								try {
 									
+									if(ventana.usuarioLogado.getBiblioteca().contains(juego)) {
+									JOptionPane.showMessageDialog(ventana,
+											"Ya tienes este juego","Error",
+											JOptionPane.INFORMATION_MESSAGE);
+								}else {
+									if(ventana.monederoActual.getSaldo()>=juego.getPrecio()) {
 									ventana.monederoActual.setSaldo((float)(ventana.monederoActual.getSaldo()-juego.getPrecio()));
 									Connection conexion=
 											DriverManager.getConnection(
@@ -181,22 +184,26 @@ public class PantallaTienda extends JPanel{
 									
 									smta.close();
 									conexion.close();
+									ventana.usuarioLogado.getBiblioteca().add(juego);
+									JOptionPane.showMessageDialog(ventana,
+											"¡Que lo disfrutes!","Éxito",
+											JOptionPane.INFORMATION_MESSAGE);
+										
 									
-									
+									}else {
+										JOptionPane.showMessageDialog(ventana,
+												"No tienes saldo suficiente, acude a la zona usuario","Error",
+												JOptionPane.INFORMATION_MESSAGE);
+									}
+								}
 									
 								} catch (SQLException e1) {
 									JOptionPane.showMessageDialog(ventana,e1.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
 								}
-								//ventana.usuarioLogado.getBiblioteca().add(juego);
-								JOptionPane.showMessageDialog(ventana,
-										"¡Que lo disfrutes!","Éxito",
-										JOptionPane.INFORMATION_MESSAGE);
-									
 								
-							//}else {
-								//JOptionPane.showMessageDialog(ventana,
-									//	"No tienes saldo suficiente, acude a la zona usuario","Error",
-								//		JOptionPane.INFORMATION_MESSAGE);
+								
+								
+							
 								
 							//}
 							

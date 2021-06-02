@@ -32,8 +32,8 @@ public class Ventana extends JFrame{
 	public Ventana() {
 		this.setSize(350,400);
 		this.setTitle("DropGames");
-		//this.setResizable(false);
-		//this.setAlwaysOnTop(true);
+		
+		
 		
 		
 		
@@ -86,6 +86,17 @@ public class Ventana extends JFrame{
 		}
 		if(this.pantallaTienda!=null) {
 			this.pantallaTienda.setVisible(false);
+			this.setSize(350,400);
+			Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+			int w = this.getSize().width;
+	        int h = this.getSize().height;
+	        int x = (dim.width-w)/2;
+	        int y = (dim.height-h)/2;
+			 this.setLocation(x, y);
+		}
+		if(this.pantallaZonaUsuario!=null) {
+			this.pantallaZonaUsuario.setVisible(false);
+			
 		}
 		
 		if(this.pantallaInicioSesion!=null) {
@@ -137,6 +148,8 @@ public class Ventana extends JFrame{
 		}
 		if(this.pantallaInicial!=null) {
 			this.pantallaInicial.setVisible(false);
+			this.setSize(1300,450);
+			this.setLocation(300, 200);
 		}
 		this.setContentPane(this.pantallaTienda);
 		this.pantallaTienda.setVisible(true);
