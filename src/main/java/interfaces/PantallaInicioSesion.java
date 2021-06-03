@@ -68,7 +68,7 @@ public class PantallaInicioSesion extends JPanel {
 		labelUsuario.setBackground(new Color(0, 0, 0));
 		labelUsuario.setLabelFor(campoUsuario);
 		labelUsuario.setHorizontalAlignment(SwingConstants.CENTER);
-		labelUsuario.setFont(new Font("Arial", Font.PLAIN, 18));
+		labelUsuario.setFont(new Font("Yu Gothic Medium", Font.BOLD, 18));
 		labelUsuario.setBounds(30, 10, 72, 30);
 		panelCentral.add(labelUsuario);
 		
@@ -80,13 +80,13 @@ public class PantallaInicioSesion extends JPanel {
 		JLabel password = new JLabel("Contrase\u00F1a");
 		password.setForeground(SystemColor.desktop);
 		password.setBackground(new Color(0, 0, 0));
-		password.setFont(new Font("Arial", Font.PLAIN, 18));
-		password.setBounds(30, 64, 100, 22);
+		password.setFont(new Font("Yu Gothic Medium", Font.BOLD, 18));
+		password.setBounds(30, 65, 100, 30);
 		panelCentral.add(password);
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\VSPC-SaltMirror\\Desktop\\com.ismael.trabajo.final.bueno\\imgs\\mando.png"));
-		lblNewLabel.setBounds(125, 121, 100, 94);
+		lblNewLabel.setIcon(new ImageIcon("imgs\\mando.png"));
+		lblNewLabel.setBounds(119, 121, 100, 94);
 		panelCentral.add(lblNewLabel);
 		
 		
@@ -95,6 +95,8 @@ public class PantallaInicioSesion extends JPanel {
 		add(panelInferior, BorderLayout.SOUTH);
 		
 		JButton botonLogin = new JButton("Iniciar Sesi\u00F3n");
+		botonLogin.setVerticalAlignment(SwingConstants.BOTTOM);
+		botonLogin.setFont(new Font("Yu Gothic Medium", Font.BOLD, 11));
 		botonLogin.setBackground(new Color(153, 153, 204));
 		botonLogin.addMouseListener(new MouseAdapter() {
 			@Override
@@ -170,6 +172,8 @@ public class PantallaInicioSesion extends JPanel {
 		panelInferior.add(botonLogin);
 		
 		JButton botonRegistro = new JButton("Registrarse");
+		botonRegistro.setFont(new Font("Yu Gothic Medium", Font.BOLD, 11));
+		botonRegistro.setVerticalAlignment(SwingConstants.BOTTOM);
 		botonRegistro.setBackground(new Color(153, 153, 204));
 		botonRegistro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

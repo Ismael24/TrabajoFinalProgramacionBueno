@@ -12,6 +12,7 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.ImageIcon;
 
 public class PantallaInicial extends JPanel {
 	private Ventana ventana;
@@ -23,7 +24,7 @@ public class PantallaInicial extends JPanel {
 		v.setResizable(false);
 		setLayout(new BorderLayout(0, 0));
 		
-		JLabel labelAccion = new JLabel("\u00BFA qu\u00E9 apartado deseas acceder?");
+		JLabel labelAccion = new JLabel("\u00BFA qu\u00E9 apartado desea acceder?");
 		labelAccion.setBackground(Color.ORANGE);
 		labelAccion.setForeground(Color.LIGHT_GRAY);
 		labelAccion.setHorizontalAlignment(SwingConstants.CENTER);
@@ -43,12 +44,15 @@ public class PantallaInicial extends JPanel {
 		panel.setLayout(null);
 		
 		JButton botonUsuario = new JButton("Zona Usuario");
+		botonUsuario.setIcon(new ImageIcon("C:\\Users\\VSPC-SaltMirror\\Desktop\\com.ismael.trabajo.final.bueno\\imgs\\zonausuario.gif"));
 		botonUsuario.setForeground(new Color(0, 0, 0));
 		botonUsuario.setBackground(new Color(153, 153, 204));
-		botonUsuario.setBounds(10, 41, 147, 232);
+		botonUsuario.setBounds(27, 75, 133, 150);
 		panel.add(botonUsuario);
 		
-		JButton botonTienda = new JButton("Tienda");
+		JButton botonTienda = new JButton("");
+		botonTienda.setIcon(new ImageIcon("C:\\Users\\VSPC-SaltMirror\\Desktop\\com.ismael.trabajo.final.bueno\\imgs\\tienda.gif"));
+		botonTienda.setForeground(new Color(0, 0, 0));
 		botonTienda.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -56,8 +60,22 @@ public class PantallaInicial extends JPanel {
 			}
 		});
 		botonTienda.setBackground(new Color(153, 153, 204));
-		botonTienda.setBounds(193, 41, 147, 232);
+		botonTienda.setBounds(170, 75, 133, 150);
 		panel.add(botonTienda);
+		
+		JLabel labelTituloZonaUsuario = new JLabel("Zona Usuario");
+		labelTituloZonaUsuario.setForeground(new Color(0, 0, 51));
+		labelTituloZonaUsuario.setHorizontalAlignment(SwingConstants.CENTER);
+		labelTituloZonaUsuario.setFont(new Font("Yu Gothic Medium", Font.BOLD, 16));
+		labelTituloZonaUsuario.setBounds(27, 47, 133, 24);
+		panel.add(labelTituloZonaUsuario);
+		
+		JLabel labelTituloTienda = new JLabel("Tienda");
+		labelTituloTienda.setForeground(new Color(0, 0, 51));
+		labelTituloTienda.setHorizontalAlignment(SwingConstants.CENTER);
+		labelTituloTienda.setFont(new Font("Yu Gothic Medium", Font.BOLD, 16));
+		labelTituloTienda.setBounds(170, 47, 133, 22);
+		panel.add(labelTituloTienda);
 		botonTienda.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}

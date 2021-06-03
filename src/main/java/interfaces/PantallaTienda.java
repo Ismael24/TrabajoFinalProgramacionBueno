@@ -54,7 +54,7 @@ public class PantallaTienda extends JPanel{
 		setLayout(new BorderLayout(0, 0));
 		
 		final HashMap<String,Juego> todosJuegos = new HashMap<>();
-		final HashSet<Juego> adquirir = new HashSet<>();
+		
 		
 		
 		
@@ -67,6 +67,7 @@ public class PantallaTienda extends JPanel{
 		add(panel, BorderLayout.WEST);
 		
 		JButton botonVolver = new JButton("Volver");
+		botonVolver.setFont(new Font("Yu Gothic Medium", Font.BOLD, 11));
 		botonVolver.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -124,7 +125,7 @@ public class PantallaTienda extends JPanel{
 				JPanel panelJuego = new JPanel();
 				panelJuego.setLayout(new BorderLayout(0, 0));
 				try {
-					imgCaratula = ImageIO.read(new File("C:\\Users\\VSPC-SaltMirror\\Desktop\\com.ismael.trabajo.final.bueno\\imgs\\"+resultSetJuegos.getString("nombre")+".jpg"));
+					imgCaratula = ImageIO.read(new File("imgs\\"+resultSetJuegos.getString("nombre")+".jpg"));
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -148,6 +149,7 @@ public class PantallaTienda extends JPanel{
 				
 				
 				JButton botonComprarJuego = new JButton("Comprar");
+				botonComprarJuego.setFont(new Font("Yu Gothic Medium", Font.BOLD, 11));
 				botonComprarJuego.setBackground(new Color(153, 153, 204));
 				botonComprarJuego.addMouseListener(new MouseAdapter() {
 					@Override
@@ -158,7 +160,7 @@ public class PantallaTienda extends JPanel{
 								
 								try {
 									
-									if(ventana.usuarioLogado.getBiblioteca().contains(juego)) {
+									if(ventana.usuarioLogado.getBiblioteca().containsKey(juego.getNombre())) {
 									JOptionPane.showMessageDialog(ventana,
 											"Ya tienes este juego","Error",
 											JOptionPane.INFORMATION_MESSAGE);
@@ -184,7 +186,7 @@ public class PantallaTienda extends JPanel{
 									
 									smta.close();
 									conexion.close();
-									ventana.usuarioLogado.getBiblioteca().add(juego);
+									ventana.usuarioLogado.getBiblioteca().put(juego.getNombre(), juego);
 									JOptionPane.showMessageDialog(ventana,
 											"¡Que lo disfrutes!","Éxito",
 											JOptionPane.INFORMATION_MESSAGE);
@@ -225,6 +227,7 @@ public class PantallaTienda extends JPanel{
 				
 				
 				JButton botonDeseados = new JButton("+");
+				botonDeseados.setFont(new Font("Yu Gothic Medium", Font.BOLD, 11));
 				botonDeseados.setBackground(new Color(153, 153, 204));
 				botonDeseados.addMouseListener(new MouseAdapter() {
 					@Override
@@ -239,6 +242,7 @@ public class PantallaTienda extends JPanel{
 				panelInferior.add(botonDeseados, BorderLayout.WEST);
 				
 				JButton botonDetallesJuego = new JButton("Detalles");
+				botonDetallesJuego.setFont(new Font("Yu Gothic Medium", Font.BOLD, 11));
 				botonDetallesJuego.setBackground(new Color(153, 153, 204));
 				botonDetallesJuego.addMouseListener(new MouseAdapter() {
 					@Override

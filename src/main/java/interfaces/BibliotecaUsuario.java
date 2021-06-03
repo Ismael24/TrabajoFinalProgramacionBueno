@@ -132,7 +132,7 @@ public class BibliotecaUsuario extends JPanel{
 				
 				final Juego juego=new Juego(nombre,imgCaratula,descripcion,precio,vecesValorado,valoracion,lenguaje,Genero.fromString(genero),duracion);
 				
-				if(ventana.usuarioLogado.getBiblioteca().contains(juego)) {
+				if(ventana.usuarioLogado.getBiblioteca().containsKey(juego.getNombre())) {
 				JLabel labelImgPrincipal = new JLabel();
 				labelImgPrincipal.setIcon(new ImageIcon(imgCaratula));
 				panelJuego.add(labelImgPrincipal, BorderLayout.CENTER);

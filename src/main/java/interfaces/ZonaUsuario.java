@@ -30,7 +30,7 @@ public class ZonaUsuario extends JPanel {
 		labelTitle.setBackground(Color.ORANGE);
 		labelTitle.setForeground(Color.LIGHT_GRAY);
 		labelTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		labelTitle.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		labelTitle.setFont(new Font("Yu Gothic Medium", Font.BOLD, 18));
 		add(labelTitle, BorderLayout.NORTH);
 		
 		JLabel labelTitulo = new JLabel("DropGames");
@@ -46,10 +46,14 @@ public class ZonaUsuario extends JPanel {
 		panel.setLayout(null);
 		
 		JButton botonBiblioteca = new JButton("Biblioteca");
+		botonBiblioteca.setFont(new Font("Yu Gothic Medium", Font.BOLD, 11));
+		botonBiblioteca.setBackground(new Color(153, 153, 204));
 		botonBiblioteca.setBounds(52, 119, 102, 35);
 		panel.add(botonBiblioteca);
 		
 		JButton botonAjustes = new JButton("Monedero");
+		botonAjustes.setFont(new Font("Yu Gothic Medium", Font.BOLD, 11));
+		botonAjustes.setBackground(new Color(153, 153, 204));
 		botonAjustes.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -64,6 +68,8 @@ public class ZonaUsuario extends JPanel {
 		panel.add(botonAjustes);
 		
 		JButton botonDeseados = new JButton("Deseados");
+		botonDeseados.setFont(new Font("Yu Gothic Medium", Font.BOLD, 11));
+		botonDeseados.setBackground(new Color(153, 153, 204));
 		botonDeseados.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -72,16 +78,22 @@ public class ZonaUsuario extends JPanel {
 		panel.add(botonDeseados);
 		
 		JLabel labelEstado = new JLabel("Estado");
-		labelEstado.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		labelEstado.setBounds(20, 10, 45, 13);
+		labelEstado.setForeground(new Color(0, 0, 0));
+		labelEstado.setFont(new Font("Yu Gothic Medium", Font.BOLD, 13));
+		labelEstado.setBounds(20, 10, 45, 21);
 		panel.add(labelEstado);
 		
 		JComboBox comboBox = new JComboBox();
+		comboBox.setFont(new Font("Yu Gothic Medium", Font.BOLD, 11));
+		comboBox.setBackground(new Color(153, 153, 204));
 		comboBox.setModel(new DefaultComboBoxModel(Estado.values()));
-		comboBox.setBounds(75, 7, 102, 21);
+		comboBox.setBounds(75, 8, 102, 21);
 		panel.add(comboBox);
 		
 		JButton botonVolver = new JButton("Volver");
+		botonVolver.setVerticalAlignment(SwingConstants.TOP);
+		botonVolver.setFont(new Font("Yu Gothic Medium", Font.BOLD, 11));
+		botonVolver.setBackground(new Color(153, 153, 204));
 		botonVolver.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -89,15 +101,22 @@ public class ZonaUsuario extends JPanel {
 				
 			}
 		});
-		botonVolver.setBounds(230, 11, 89, 23);
+		botonVolver.setBounds(232, 7, 89, 23);
 		panel.add(botonVolver);
 		
-		int aleatorio=0;
-		aleatorio = (int) (Math.random() *2);
+		int aleatorio;
+		aleatorio = (int) (Math.random() *3);
 		
 		JLabel labelImgUsuario = new JLabel("");
-		labelImgUsuario.setIcon(new ImageIcon("C:\\Users\\VSPC-SaltMirror\\Desktop\\com.ismael.trabajo.final.bueno\\imgs\\avatar"+aleatorio.getString()+".png"));
-		labelImgUsuario.setBounds(178, 93, 110, 151);
+		labelImgUsuario.setIcon(new ImageIcon("imgs\\avatar"+String.valueOf(aleatorio)+".png"));
+		labelImgUsuario.setBounds(192, 93, 110, 151);
 		panel.add(labelImgUsuario);
+		
+		JLabel labelNombreUsuario = new JLabel(ventana.usuarioLogado.getAlias());
+		labelNombreUsuario.setForeground(new Color(0, 0, 0));
+		labelNombreUsuario.setHorizontalAlignment(SwingConstants.CENTER);
+		labelNombreUsuario.setFont(new Font("Yu Gothic Medium", Font.BOLD, 16));
+		labelNombreUsuario.setBounds(192, 82, 110, 21);
+		panel.add(labelNombreUsuario);
 	}
 }

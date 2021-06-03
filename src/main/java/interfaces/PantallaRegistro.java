@@ -82,21 +82,25 @@ public class PantallaRegistro extends JPanel {
 		campoAlias.setColumns(10);
 		
 		JLabel labelNombre = new JLabel("Nombre");
+		labelNombre.setVerticalAlignment(SwingConstants.TOP);
 		labelNombre.setForeground(new Color(0, 0, 0));
-		labelNombre.setFont(new Font("Arial", Font.PLAIN, 18));
-		labelNombre.setBounds(10, 37, 76, 15);
+		labelNombre.setFont(new Font("Yu Gothic Medium", Font.BOLD, 18));
+		labelNombre.setBounds(10, 34, 76, 51);
 		panelCentral.add(labelNombre);
 		
 		JLabel labelAlias = new JLabel("Alias");
+		labelAlias.setVerticalAlignment(SwingConstants.TOP);
 		labelAlias.setForeground(new Color(0, 0, 0));
-		labelAlias.setFont(new Font("Arial", Font.PLAIN, 18));
+		labelAlias.setFont(new Font("Yu Gothic Medium", Font.BOLD, 18));
 		labelAlias.setHorizontalAlignment(SwingConstants.TRAILING);
-		labelAlias.setBounds(10, 87, 42, 14);
+		labelAlias.setBounds(10, 86, 42, 30);
 		panelCentral.add(labelAlias);
 		
 		ButtonGroup grupoGenero=new ButtonGroup();
 		
 		final JButton botonRegistrarse = new JButton("Registrarse");
+		botonRegistrarse.setVerticalAlignment(SwingConstants.TOP);
+		botonRegistrarse.setFont(new Font("Yu Gothic Medium", Font.BOLD, 11));
 		botonRegistrarse.setBackground(new Color(153, 153, 204));
 		
 		botonRegistrarse.addActionListener(new ActionListener() {
@@ -177,6 +181,8 @@ public class PantallaRegistro extends JPanel {
 		panelCentral.add(botonRegistrarse);
 		
 		JButton botonVolver = new JButton("Volver");
+		botonVolver.setVerticalAlignment(SwingConstants.TOP);
+		botonVolver.setFont(new Font("Yu Gothic Medium", Font.BOLD, 11));
 		botonVolver.setBackground(new Color(153, 153, 204));
 		botonVolver.addMouseListener(new MouseAdapter() {
 			@Override
@@ -188,15 +194,17 @@ public class PantallaRegistro extends JPanel {
 		panelCentral.add(botonVolver);
 		
 		JLabel labelPassword = new JLabel("Contrase\u00F1a");
+		labelPassword.setVerticalAlignment(SwingConstants.TOP);
 		labelPassword.setForeground(new Color(0, 0, 0));
-		labelPassword.setFont(new Font("Arial", Font.PLAIN, 18));
-		labelPassword.setBounds(10, 128, 107, 15);
+		labelPassword.setFont(new Font("Yu Gothic Medium", Font.BOLD, 18));
+		labelPassword.setBounds(10, 127, 107, 40);
 		panelCentral.add(labelPassword);
 		
 		JLabel labelCorreo = new JLabel("Correo electr\u00F3nico");
+		labelCorreo.setVerticalAlignment(SwingConstants.TOP);
 		labelCorreo.setForeground(new Color(0, 0, 0));
-		labelCorreo.setFont(new Font("Arial", Font.PLAIN, 18));
-		labelCorreo.setBounds(10, 180, 155, 15);
+		labelCorreo.setFont(new Font("Yu Gothic Medium", Font.BOLD, 18));
+		labelCorreo.setBounds(10, 180, 155, 29);
 		panelCentral.add(labelCorreo);
 		
 		campoCorreo = new JTextField();

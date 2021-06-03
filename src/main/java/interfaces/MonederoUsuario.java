@@ -29,6 +29,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.ImageIcon;
 
 public class MonederoUsuario extends JPanel {
 	private Ventana ventana;
@@ -42,7 +43,7 @@ public class MonederoUsuario extends JPanel {
 		labelAccion.setBackground(Color.ORANGE);
 		labelAccion.setForeground(Color.LIGHT_GRAY);
 		labelAccion.setHorizontalAlignment(SwingConstants.CENTER);
-		labelAccion.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		labelAccion.setFont(new Font("Yu Gothic Medium", Font.BOLD, 18));
 		add(labelAccion, BorderLayout.NORTH);
 		
 		JLabel labelTitulo = new JLabel("DropGames");
@@ -59,24 +60,25 @@ public class MonederoUsuario extends JPanel {
 		panel.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Saldo");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel.setBounds(10, 10, 39, 26);
+		lblNewLabel.setFont(new Font("Yu Gothic Medium", Font.BOLD, 16));
+		lblNewLabel.setBounds(181, 196, 50, 26);
 		panel.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("\u00BFCu\u00E1nto deseas a\u00F1adir?");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_1.setBounds(30, 113, 184, 13);
+		lblNewLabel_1.setFont(new Font("Yu Gothic Medium", Font.BOLD, 16));
+		lblNewLabel_1.setBounds(34, 48, 184, 22);
 		panel.add(lblNewLabel_1);
 		
 		dineroAñadir = new JTextField();
 		dineroAñadir.setBackground(new Color(153, 153, 204));
-		dineroAñadir.setBounds(153, 150, 96, 19);
+		dineroAñadir.setBounds(181, 97, 96, 19);
 		panel.add(dineroAñadir);
 		dineroAñadir.setColumns(10);
 		
 		
 		
 		JButton botonPagar = new JButton("Pagar");
+		botonPagar.setFont(new Font("Yu Gothic Medium", Font.BOLD, 11));
 		botonPagar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -89,7 +91,9 @@ public class MonederoUsuario extends JPanel {
 				
 				//esto es un comentario para probar github
 				try {
-					
+					if(dineroAñadir.getText().equals("")||Float.parseFloat(dineroAñadir.getText())<5.0) {
+						JOptionPane.showMessageDialog(ventana, "Añada un importe superior a 5 euros","Error",JOptionPane.INFORMATION_MESSAGE);
+					}else {
 					ventana.monederoActual.setSaldo((float)((ventana.monederoActual.getSaldo())+(Float.parseFloat(dineroAñadir.getText()))));
 					Connection conexion=
 							DriverManager.getConnection(
@@ -113,9 +117,9 @@ public class MonederoUsuario extends JPanel {
 					
 					smta.close();
 					conexion.close();
+					JOptionPane.showMessageDialog(ventana, "Pago realizado con éxito","Éxito",JOptionPane.INFORMATION_MESSAGE);
 					
-					
-					
+					}
 				} catch (SQLException e1) {
 					JOptionPane.showMessageDialog(ventana,e1.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
 				}
@@ -127,24 +131,31 @@ public class MonederoUsuario extends JPanel {
 			}
 		});
 		
-		botonPagar.setBounds(199, 179, 85, 26);
+		botonPagar.setBounds(192, 127, 85, 26);
 		panel.add(botonPagar);
 		
 		JLabel labelSaldoActual = new JLabel(String.valueOf(ventana.monederoActual.getSaldo()));
-		labelSaldoActual.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		labelSaldoActual.setBounds(61, 16, 55, 14);
+		labelSaldoActual.setFont(new Font("Yu Gothic Medium", Font.BOLD, 15));
+		labelSaldoActual.setBounds(256, 199, 55, 20);
 		panel.add(labelSaldoActual);
 		
 		
 		JButton botonVolver = new JButton("Volver");
+		botonVolver.setVerticalAlignment(SwingConstants.TOP);
+		botonVolver.setFont(new Font("Yu Gothic Medium", Font.BOLD, 11));
 		botonVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ventana.irAZonaUsuario();
 			}
 		});
 		botonVolver.setBackground(new Color(153, 153, 204));
-		botonVolver.setBounds(222, 12, 85, 26);
+		botonVolver.setBounds(34, 11, 85, 26);
 		panel.add(botonVolver);
+		
+		JLabel labelImgMonedero = new JLabel("");
+		labelImgMonedero.setIcon(new ImageIcon("imgs\\monedero.png"));
+		labelImgMonedero.setBounds(56, 168, 71, 70);
+		panel.add(labelImgMonedero);
 		
 		
 		

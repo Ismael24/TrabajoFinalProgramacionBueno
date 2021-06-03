@@ -1,6 +1,7 @@
 package clases;
 
 import java.awt.image.BufferedImage;
+import java.util.HashMap;
 import java.util.HashSet;
 
 import javax.swing.JOptionPane;
@@ -19,11 +20,11 @@ public class Usuario extends EntidadBasica {
 	private String correo;
 	private Estado estado;
 	private HashSet<Juego> deseados;
-	private HashSet<Juego> biblioteca;
+	private HashMap<String,Juego> biblioteca;
 	private Monedero monedero;
 	
 	public Usuario(String nombre, BufferedImage imgPrincipal, String alias, String password, byte nivel, String correo,
-			Estado estado, HashSet<Juego> deseados, HashSet<Juego> biblioteca, Monedero monedero) throws PasswordMuyCortaException, NombreVacioException, AliasVacioException,CorreoVacioException {
+			Estado estado, HashSet<Juego> deseados, HashMap<String,Juego> biblioteca, Monedero monedero) throws PasswordMuyCortaException, NombreVacioException, AliasVacioException,CorreoVacioException {
 		super(nombre, imgPrincipal);
 		this.setAlias(alias);
 		this.setPassword(password);
@@ -31,7 +32,7 @@ public class Usuario extends EntidadBasica {
 		this.setCorreo(correo);
 		this.estado = estado;
 		this.deseados = deseados;
-		this.biblioteca = new HashSet<Juego>();
+		this.biblioteca = new HashMap<String,Juego>();
 		this.monedero = monedero;
 	}
 	
@@ -132,11 +133,11 @@ public class Usuario extends EntidadBasica {
 	}
 	
 
-	public HashSet<Juego> getBiblioteca() {
+	public HashMap<String,Juego> getBiblioteca() {
 		return biblioteca;
 	}
 
-	public void setBiblioteca(HashSet<Juego> biblioteca) {
+	public void setBiblioteca(HashMap<String,Juego> biblioteca) {
 		this.biblioteca = biblioteca;
 	}
 
@@ -154,7 +155,7 @@ public class Usuario extends EntidadBasica {
 	public void  comprarJuegos(float precioJuego, Juego juego){
 		if(monedero.getSaldo()>=precioJuego) {
 			monedero.setSaldo((float)(monedero.getSaldo()-precioJuego));
-			biblioteca.add(juego);
+			biblioteca.put(juego.getNombre(),juego);
 			 
 		}
 		
