@@ -86,11 +86,11 @@ public class PantallaInicioSesion extends JPanel {
 		password.setFont(new Font("Yu Gothic Medium", Font.BOLD, 18));
 		password.setBounds(30, 65, 100, 30);
 		panelCentral.add(password);
-
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon("imgs\\mando.png"));
-		lblNewLabel.setBounds(119, 121, 100, 94);
-		panelCentral.add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setIcon(new ImageIcon("imgs\\mario.gif"));
+		lblNewLabel_1.setBounds(0, 0, 350, 346);
+		panelCentral.add(lblNewLabel_1);
 
 		JPanel panelInferior = new JPanel();
 		panelInferior.setBackground(new Color(153, 102, 204));

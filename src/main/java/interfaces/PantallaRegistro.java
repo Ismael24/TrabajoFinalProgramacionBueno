@@ -49,6 +49,7 @@ import excepciones.PasswordMuyCortaException;
 import excepciones.AliasVacioException;
 import excepciones.CorreoVacioException;
 import excepciones.NombreVacioException;
+import javax.swing.ImageIcon;
 /**
  * Clase que representa la ventana de registro de usuario , comentaré lo destacado, el resto es diseño visual de la ventana.
  * @author Ismael Paloma Narváez
@@ -86,14 +87,14 @@ public class PantallaRegistro extends JPanel {
 		
 		JLabel labelNombre = new JLabel("Nombre");
 		labelNombre.setVerticalAlignment(SwingConstants.TOP);
-		labelNombre.setForeground(new Color(0, 0, 0));
+		labelNombre.setForeground(Color.WHITE);
 		labelNombre.setFont(new Font("Yu Gothic Medium", Font.BOLD, 18));
 		labelNombre.setBounds(10, 34, 76, 51);
 		panelCentral.add(labelNombre);
 
 		JLabel labelAlias = new JLabel("Alias");
 		labelAlias.setVerticalAlignment(SwingConstants.TOP);
-		labelAlias.setForeground(new Color(0, 0, 0));
+		labelAlias.setForeground(Color.WHITE);
 		labelAlias.setFont(new Font("Yu Gothic Medium", Font.BOLD, 18));
 		labelAlias.setHorizontalAlignment(SwingConstants.TRAILING);
 		labelAlias.setBounds(10, 86, 42, 30);
@@ -187,14 +188,14 @@ public class PantallaRegistro extends JPanel {
 
 		JLabel labelPassword = new JLabel("Contrase\u00F1a");
 		labelPassword.setVerticalAlignment(SwingConstants.TOP);
-		labelPassword.setForeground(new Color(0, 0, 0));
+		labelPassword.setForeground(Color.WHITE);
 		labelPassword.setFont(new Font("Yu Gothic Medium", Font.BOLD, 18));
 		labelPassword.setBounds(10, 127, 107, 40);
 		panelCentral.add(labelPassword);
 
 		JLabel labelCorreo = new JLabel("Correo electr\u00F3nico");
 		labelCorreo.setVerticalAlignment(SwingConstants.TOP);
-		labelCorreo.setForeground(new Color(0, 0, 0));
+		labelCorreo.setForeground(Color.WHITE);
 		labelCorreo.setFont(new Font("Yu Gothic Medium", Font.BOLD, 18));
 		labelCorreo.setBounds(10, 180, 155, 29);
 		panelCentral.add(labelCorreo);
@@ -215,6 +216,11 @@ public class PantallaRegistro extends JPanel {
 		campoUsuario.setBounds(173, 36, 130, 20);
 		panelCentral.add(campoUsuario);
 		campoUsuario.setColumns(10);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon("imgs\\registro.gif"));
+		lblNewLabel.setBounds(0, 0, 350, 347);
+		panelCentral.add(lblNewLabel);
 
 	}
 }
