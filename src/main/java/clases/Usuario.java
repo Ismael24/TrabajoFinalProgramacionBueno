@@ -23,18 +23,7 @@ public class Usuario extends EntidadBasica {
 	private HashMap<String,Juego> biblioteca;
 	private Monedero monedero;
 	
-	public Usuario(String nombre, BufferedImage imgPrincipal, String alias, String password, byte nivel, String correo,
-			Estado estado, HashSet<Juego> deseados, HashMap<String,Juego> biblioteca, Monedero monedero) throws PasswordMuyCortaException, NombreVacioException, AliasVacioException,CorreoVacioException {
-		super(nombre, imgPrincipal);
-		this.setAlias(alias);
-		this.setPassword(password);
-		this.nivel = nivel;
-		this.setCorreo(correo);
-		this.estado = estado;
-		this.deseados = deseados;
-		this.biblioteca = new HashMap<String,Juego>();
-		this.monedero = monedero;
-	}
+	
 	
 
 	
@@ -48,6 +37,7 @@ public class Usuario extends EntidadBasica {
 		this.nivel = nivel;
 		this.setCorreo(correo);
 		this.estado = estado;
+		this.biblioteca = new HashMap<String,Juego>();
 	}
 
 
@@ -63,6 +53,7 @@ public class Usuario extends EntidadBasica {
 		this.setCorreo(correo);
 		this.estado = estado;
 		this.monedero = monedero;
+		this.biblioteca = new HashMap<String,Juego>();
 	}
 	
 

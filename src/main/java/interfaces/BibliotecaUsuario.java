@@ -41,7 +41,7 @@ public class BibliotecaUsuario extends JPanel{
 		
 		this.ventana=v;
 		v.setSize(1300,450);
-		v.setResizable(false);
+		//v.setResizable(false);
         v.setLocation(300, 200);
 		setLayout(new BorderLayout(0, 0));
 		
@@ -107,54 +107,74 @@ public class BibliotecaUsuario extends JPanel{
 							);
 			Statement smt=conexion.createStatement();
 			
-			ResultSet resultSetJuegos=smt.executeQuery(
-					"select * from juego"
+			ResultSet resultSetJuegosUsuario=smt.executeQuery(
+					"select * from juegos_biblioteca where usuario='"+ventana.usuarioLogado.getNombre()+"'"
 					);
-			while(resultSetJuegos.next()) {
+			while(resultSetJuegosUsuario.next()) {
 
-				JPanel panelJuego = new JPanel();
-				panelJuego.setLayout(new BorderLayout(0, 0));
+				
 				try {
-					imgCaratula = ImageIO.read(new File("C:\\Users\\VSPC-SaltMirror\\Desktop\\com.ismael.trabajo.final.bueno\\imgs\\"+resultSetJuegos.getString("nombre")+".jpg"));
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					
+					Statement smta=conexion.createStatement();
+					
+					ResultSet resultSetJuegos=smta.executeQuery(
+							"select * from juego"
+							);
+					while(resultSetJuegos.next()) {
+						if(resultSetJuegosUsuario.getString("juego").equals(resultSetJuegos.getString("nombre"))) {
+						JPanel panelJuego = new JPanel();
+						panelJuego.setLayout(new BorderLayout(0, 0));
+						try {
+							imgCaratula = ImageIO.read(new File("imgs\\"+resultSetJuegos.getString("nombre")+".jpg"));
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						String nombre=resultSetJuegos.getString("nombre");
+						
+						
+						
+						final Juego juego=new Juego(nombre,imgCaratula);
+						
+						
+						JLabel labelImgPrincipal = new JLabel();
+						labelImgPrincipal.setIcon(new ImageIcon(juego.getImgPrincipal()));
+						panelJuego.add(labelImgPrincipal, BorderLayout.CENTER);
+						
+						
+						JPanel panelInferior = new JPanel();
+						panelInferior.setBackground(new Color(153, 102, 204));
+						panelJuego.add(panelInferior, BorderLayout.SOUTH);
+						
+						
+						
+						
+						
+						
+						
+						panelListaJuegos.add(panelJuego);
+						
+						}
+						
+						
+					}
+					smta.close();
+					
+					
+					
+				} catch (SQLException  | NombreVacioException e1) {
+					JOptionPane.showMessageDialog(ventana,e1.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
 				}
-				String nombre=resultSetJuegos.getString("nombre");
-				String descripcion=resultSetJuegos.getString("descripcion");
-				float precio=resultSetJuegos.getFloat("precio");
-				int vecesValorado=resultSetJuegos.getInt("vecesValorado");
-				float valoracion=resultSetJuegos.getFloat("valoracion");
-				String lenguaje=resultSetJuegos.getString("lenguaje");
-				String genero=resultSetJuegos.getString("genero");
-				short duracion=resultSetJuegos.getShort("duracion");
 				
 				
-				final Juego juego=new Juego(nombre,imgCaratula,descripcion,precio,vecesValorado,valoracion,lenguaje,Genero.fromString(genero),duracion);
-				
-				if(ventana.usuarioLogado.getBiblioteca().containsKey(juego.getNombre())) {
-				JLabel labelImgPrincipal = new JLabel();
-				labelImgPrincipal.setIcon(new ImageIcon(imgCaratula));
-				panelJuego.add(labelImgPrincipal, BorderLayout.CENTER);
-				
-				
-				JPanel panelInferior = new JPanel();
-				panelInferior.setBackground(new Color(153, 102, 204));
-				panelJuego.add(panelInferior, BorderLayout.SOUTH);
-				
-
-				
-				panelListaJuegos.add(panelJuego);
-				
-				
-				}
 			}
 			
 			smt.close();
 			conexion.close();
 			
 			
-		} catch (SQLException  | NombreVacioException e1) {
+		} catch (SQLException e1) {
+			e1.printStackTrace();
 			JOptionPane.showMessageDialog(ventana,e1.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
 		}
 		
@@ -169,3 +189,5 @@ public class BibliotecaUsuario extends JPanel{
 	
 
 }
+
+

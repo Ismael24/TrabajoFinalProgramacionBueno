@@ -24,10 +24,12 @@ public class Ventana extends JFrame{
 	private MonederoUsuario pantallaMonederoUsuario;
 	private PantallaTienda pantallaTienda;
 	private BibliotecaUsuario bibliotecaUsuario;
+	private DeseadosUsuario deseadosUsuario;
 	
 	
 	protected Usuario usuarioLogado;
 	protected Monedero monederoActual;
+	
 	
 	public Ventana() {
 		this.setSize(350,400);
@@ -114,12 +116,33 @@ public class Ventana extends JFrame{
 		}
 		if(this.pantallaInicial!=null) {
 			this.pantallaInicial.setVisible(false);
+			this.setSize(350,400);
+			Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+			int w = this.getSize().width;
+	        int h = this.getSize().height;
+	        int x = (dim.width-w)/2;
+	        int y = (dim.height-h)/2;
+			 this.setLocation(x, y);
 		}
 		if(this.bibliotecaUsuario!=null) {
 			this.bibliotecaUsuario.setVisible(false);
+			this.setSize(350,400);
+			Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+			int w = this.getSize().width;
+	        int h = this.getSize().height;
+	        int x = (dim.width-w)/2;
+	        int y = (dim.height-h)/2;
+			 this.setLocation(x, y);
 		}
 		if(this.pantallaMonederoUsuario!=null) {
 			this.pantallaMonederoUsuario.setVisible(false);
+			this.setSize(350,400);
+			Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+			int w = this.getSize().width;
+	        int h = this.getSize().height;
+	        int x = (dim.width-w)/2;
+	        int y = (dim.height-h)/2;
+			 this.setLocation(x, y);
 		}
 		this.setContentPane(this.pantallaZonaUsuario);
 		this.pantallaZonaUsuario.setVisible(true);
@@ -154,6 +177,33 @@ public class Ventana extends JFrame{
 		this.setContentPane(this.pantallaTienda);
 		this.pantallaTienda.setVisible(true);
 	}
+	
+	public void irABibliotecaUsuario() {
+		if(this.bibliotecaUsuario==null) {
+			this.bibliotecaUsuario=new BibliotecaUsuario(this);
+		}
+		if(this.pantallaZonaUsuario!=null) {
+			this.pantallaZonaUsuario.setVisible(false);
+			this.setSize(1300,450);
+			this.setLocation(300, 200);
+		}
+		this.setContentPane(this.bibliotecaUsuario);
+		this.bibliotecaUsuario.setVisible(true);
+	}
+	
+	public void irADeseadosUsuario() {
+		if(this.deseadosUsuario==null) {
+			this.deseadosUsuario=new DeseadosUsuario(this);
+		}
+		if(this.pantallaZonaUsuario!=null) {
+			this.pantallaZonaUsuario.setVisible(false);
+			this.setSize(1300,450);
+			this.setLocation(300, 200);
+		}
+		this.setContentPane(this.deseadosUsuario);
+		this.deseadosUsuario.setVisible(true);
+	}
+	
 	
 	
 	

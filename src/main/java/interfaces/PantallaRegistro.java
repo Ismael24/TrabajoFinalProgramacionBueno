@@ -108,7 +108,7 @@ public class PantallaRegistro extends JPanel {
 				
 				BufferedImage imgUsuario=null;
 				try {
-					imgUsuario = ImageIO.read(new File("mando.png"));
+					imgUsuario = ImageIO.read(new File("imgs\\mando.png"));
 				} catch (IOException e2) {
 					// TODO Auto-generated catch block
 					e2.printStackTrace();

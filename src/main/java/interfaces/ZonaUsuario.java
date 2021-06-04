@@ -46,6 +46,12 @@ public class ZonaUsuario extends JPanel {
 		panel.setLayout(null);
 		
 		JButton botonBiblioteca = new JButton("Biblioteca");
+		botonBiblioteca.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ventana.irABibliotecaUsuario();
+			}
+		});
 		botonBiblioteca.setFont(new Font("Yu Gothic Medium", Font.BOLD, 11));
 		botonBiblioteca.setBackground(new Color(153, 153, 204));
 		botonBiblioteca.setBounds(52, 119, 102, 35);
@@ -68,6 +74,13 @@ public class ZonaUsuario extends JPanel {
 		panel.add(botonAjustes);
 		
 		JButton botonDeseados = new JButton("Deseados");
+		botonDeseados.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ventana.irADeseadosUsuario();
+				
+			}
+		});
 		botonDeseados.setFont(new Font("Yu Gothic Medium", Font.BOLD, 11));
 		botonDeseados.setBackground(new Color(153, 153, 204));
 		botonDeseados.addActionListener(new ActionListener() {

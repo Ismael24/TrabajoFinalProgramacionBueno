@@ -1,5 +1,8 @@
 package enumeraciones;
-
+/**
+ * Enum que representa los estados posibles para un usuario
+ * @author Ismael Paloma Narváez
+ */
 public enum Estado {
 	CONECTADO,AUSENTE,INVISIBLE,DESCONECTADO;
 	

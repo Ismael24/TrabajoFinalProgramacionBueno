@@ -44,14 +44,14 @@ public class PantallaInicial extends JPanel {
 		panel.setLayout(null);
 		
 		JButton botonUsuario = new JButton("Zona Usuario");
-		botonUsuario.setIcon(new ImageIcon("C:\\Users\\VSPC-SaltMirror\\Desktop\\com.ismael.trabajo.final.bueno\\imgs\\zonausuario.gif"));
+		botonUsuario.setIcon(new ImageIcon("imgs\\zonausuario.gif"));
 		botonUsuario.setForeground(new Color(0, 0, 0));
 		botonUsuario.setBackground(new Color(153, 153, 204));
 		botonUsuario.setBounds(27, 75, 133, 150);
 		panel.add(botonUsuario);
 		
 		JButton botonTienda = new JButton("");
-		botonTienda.setIcon(new ImageIcon("C:\\Users\\VSPC-SaltMirror\\Desktop\\com.ismael.trabajo.final.bueno\\imgs\\tienda.gif"));
+		botonTienda.setIcon(new ImageIcon("imgs\\tienda.gif"));
 		botonTienda.setForeground(new Color(0, 0, 0));
 		botonTienda.addMouseListener(new MouseAdapter() {
 			@Override

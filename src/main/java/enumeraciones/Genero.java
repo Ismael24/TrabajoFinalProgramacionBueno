@@ -1,5 +1,8 @@
 package enumeraciones;
-
+/**
+ * Enum que representa los Generos posibles para un juego
+ * @author Ismael Paloma Narváez
+ */
 public enum Genero {
 	ACCIÓN,
 	AVENTURA,
@@ -15,7 +18,7 @@ public enum Genero {
 	TERROR,
 	LUCHA,
 	RPG;
-	
+	//atajo para que todo se recoja bien de la base de datos
 	public static Genero fromString(String s) {
 		switch(s) {
 		case "ACCIÓN":

@@ -6,121 +6,137 @@ import java.util.ArrayList;
 
 import enumeraciones.Genero;
 import excepciones.NombreVacioException;
-
+/**
+ * Clase que dedicada al objeto juego en la cual tenemos las variables más comunes de un videojuego.
+ * @author Ismael Paloma Narváez
+ */
 public class Juego extends EntidadBasica{
 	private String descripcion;
 	private float precio;
-	private int vecesValorado;
-	private float valoracion;
 	private String lenguaje;
 	private Genero genero;
 	private short duracion;
-	private LocalDate fechaLanzamiento;
-	
-	public Juego(String nombre, BufferedImage imgPrincipal, String descripcion, float precio, int vecesValorado,
-			float valoracion, String lenguaje, Genero genero, short duracion, LocalDate fechaLanzamiento) throws NombreVacioException {
+	private String fechaLanzamiento;
+	/**
+     * Constructor con todos los datos de juego.
+     * @param nombre el nombre del juego.
+ * @param imgPrincipal la tipica "caratula" del juego.
+ * @param descripcion pequeña descripción del juego.
+ * @param precio precio del juego
+ * @param lenguaje lenguaje/s del juego
+ * @param genero tipo de genero del juego
+ * @param duracion durecion media del juego
+ * @param fechaLanzamiento fecha en la que se estrenó el juego
+     */
+	public Juego(String nombre, BufferedImage imgPrincipal, String descripcion, float precio, String lenguaje, Genero genero, short duracion, String fechaLanzamiento) throws NombreVacioException {
 		super(nombre, imgPrincipal);
 		this.descripcion = descripcion;
 		this.precio = precio;
-		this.vecesValorado = vecesValorado;
-		this.valoracion = valoracion;
 		this.lenguaje = lenguaje;
 		this.genero = genero;
 		this.duracion = duracion;
 		this.fechaLanzamiento = fechaLanzamiento;
 	}
+	/**
+     * Constructor de juego pero solo recibe el nombre y la imagen.
+     * @param nombre el nombre del juego.
+ * @param imgPrincipal la tipica "caratula" del juego.
+     */
 
-
-	public Juego(String nombre, BufferedImage imgPrincipal, String descripcion, float precio, int vecesValorado,
-			float valoracion, String lenguaje, Genero genero, short duracion) throws NombreVacioException {
+	public Juego(String nombre, BufferedImage imgPrincipal) throws NombreVacioException {
 		super(nombre, imgPrincipal);
-		this.descripcion = descripcion;
-		this.precio = precio;
-		this.vecesValorado = vecesValorado;
-		this.valoracion = valoracion;
-		this.lenguaje = lenguaje;
-		this.genero = genero;
-		this.duracion = duracion;
 	}
 
 
-
-
-
-
-
-
-
-
-
+	/**
+     * obtiene el nivel de satisfacción de paseo del tamagotchi, entre 0 y 100
+     * @return nivel de satisfacción del tamagotchi
+     */
 	public String getDescripcion() {
 		return descripcion;
 	}
-
+	/**
+     * Establece la nueva descripcion del juego
+     * @param descripcion nueva descripcion
+     */
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-
+	/**
+     * obtiene el precio del juego
+     * @return el precio del juego
+     */
 	public float getPrecio() {
 		return precio;
 	}
-
+	/**
+     * Establece el nuevo precio del juego
+     * @param precio nuevo precio
+     */
 	public void setPrecio(float precio) {
 		this.precio = precio;
 	}
-
-	public int getVecesValorado() {
-		return vecesValorado;
-	}
-
-	public void setVecesValorado(int vecesValorado) {
-		this.vecesValorado = vecesValorado;
-	}
-
-	public float getValoracion() {
-		return valoracion;
-	}
-
-	public void setValoracion(float valoracion) {
-		this.valoracion = valoracion;
-	}
-
+	/**
+     * obtiene el nlenguaje/s del juego
+     * @return lenguaje/s del juego
+     */
 	public String getLenguaje() {
 		return lenguaje;
 	}
-
+	/**
+     * Establece nuevo lenguaje para el juego
+     * @param lenguaje nuevo lenguaje
+     */
 	public void setLenguaje(String lenguaje) {
 		this.lenguaje = lenguaje;
 	}
-
+	/**
+     * obtiene el tipo de genero del juego
+     * @return el genero del juego
+     */
 	public Genero getGenero() {
 		return genero;
 	}
-
+	/**
+     * Establece el nuevo genero del juego
+     * @param genero nuevo genero de tipo genero
+     */
 	public void setGenero(Genero genero) {
 		this.genero = genero;
 	}
-
+	/**
+     * obtiene la duración media del juego
+     * @return la duración del juego
+     */
 	public short getDuracion() {
 		return duracion;
 	}
-
+	/**
+     * Establece la nueva duración del juego
+     * @param duracion nueva duracion
+     */
 	public void setDuracion(short duracion) {
 		this.duracion = duracion;
 	}
-
-	public LocalDate getFechaLanzamiento() {
+	/**
+     * obtiene la fecha de lanzamiento del juego
+     * @return la fecha de lanzamiento del juego
+     */
+	public String getFechaLanzamiento() {
 		return fechaLanzamiento;
 	}
-
-	public void setFechaLanzamiento(LocalDate fechaLanzamiento) {
+	/**
+     * Establece la nueva fecha de lanzamiento del juego
+     * @param fechaLanzamiento nueva fecha
+     */
+	public void setFechaLanzamiento(String fechaLanzamiento) {
 		this.fechaLanzamiento = fechaLanzamiento;
 	}
 
 	@Override
 	public String toString() {
-		return "Juego [descripcion=" + descripcion + ", precio=" + precio + ", vecesValorado=" + vecesValorado
-				+ ", valoracion=" + valoracion + ", lenguaje=" + lenguaje + ", genero=" + genero + ", duracion="
+		return "Juego [descripcion=" + descripcion + ", precio=" + precio + ", vecesValorado=" 
+				+ ", valoracion="  + ", lenguaje=" + lenguaje + ", genero=" + genero + ", duracion="
 				+ duracion + ", fechaLanzamiento=" + fechaLanzamiento + "]";
 	}
 	

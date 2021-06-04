@@ -74,7 +74,8 @@ public class MonederoUsuario extends JPanel {
 		dineroAñadir.setBounds(181, 97, 96, 19);
 		panel.add(dineroAñadir);
 		dineroAñadir.setColumns(10);
-		
+
+		final JLabel labelSaldoActual = new JLabel(String.valueOf(ventana.monederoActual.getSaldo()));
 		
 		
 		JButton botonPagar = new JButton("Pagar");
@@ -106,14 +107,11 @@ public class MonederoUsuario extends JPanel {
 					smta.executeUpdate(
 							"UPDATE monedero SET saldo = '"+ventana.monederoActual.getSaldo()+"' WHERE nombreUsuario = '"+ventana.usuarioLogado.getNombre()+"'");
 					
-					JLabel labelSaldoActual = new JLabel(String.valueOf(ventana.monederoActual.getSaldo()));
-					labelSaldoActual.setFont(new Font("Tahoma", Font.PLAIN, 15));
-					labelSaldoActual.setBounds(61, 16, 55, 14);
-					panel.add(labelSaldoActual);
+					
+					labelSaldoActual.setText(""+ventana.monederoActual.getSaldo());
 					
 					
 					
-					ventana.actualizarPantallaMonedero();
 					
 					smta.close();
 					conexion.close();
@@ -124,7 +122,7 @@ public class MonederoUsuario extends JPanel {
 					JOptionPane.showMessageDialog(ventana,e1.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
 				}
 				
-				//ventana.actualizarPantallaMonedero();
+				
 				
 				
 				
@@ -134,7 +132,6 @@ public class MonederoUsuario extends JPanel {
 		botonPagar.setBounds(192, 127, 85, 26);
 		panel.add(botonPagar);
 		
-		JLabel labelSaldoActual = new JLabel(String.valueOf(ventana.monederoActual.getSaldo()));
 		labelSaldoActual.setFont(new Font("Yu Gothic Medium", Font.BOLD, 15));
 		labelSaldoActual.setBounds(256, 199, 55, 20);
 		panel.add(labelSaldoActual);

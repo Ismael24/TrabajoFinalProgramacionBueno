@@ -133,14 +133,15 @@ public class PantallaTienda extends JPanel{
 				String nombre=resultSetJuegos.getString("nombre");
 				String descripcion=resultSetJuegos.getString("descripcion");
 				float precio=resultSetJuegos.getFloat("precio");
-				int vecesValorado=resultSetJuegos.getInt("vecesValorado");
-				float valoracion=resultSetJuegos.getFloat("valoracion");
 				String lenguaje=resultSetJuegos.getString("lenguaje");
 				String genero=resultSetJuegos.getString("genero");
 				short duracion=resultSetJuegos.getShort("duracion");
+				String fecha=resultSetJuegos.getString("fechaLanzamiento");
 				
 				
-				final Juego juego=new Juego(nombre,imgCaratula,descripcion,precio,vecesValorado,valoracion,lenguaje,Genero.fromString(genero),duracion);
+				
+				
+				final Juego juego=new Juego(nombre,imgCaratula,descripcion,precio,lenguaje,Genero.fromString(genero),duracion,fecha);
 				todosJuegos.put(nombre, juego);
 				
 				JLabel labelImgPrincipal = new JLabel();
@@ -186,7 +187,26 @@ public class PantallaTienda extends JPanel{
 									
 									smta.close();
 									conexion.close();
-									ventana.usuarioLogado.getBiblioteca().put(juego.getNombre(), juego);
+									
+									Connection c= DriverManager.getConnection(
+											"jdbc:mysql://127.0.0.1:3306/dropgames",
+											"root","admin");
+											Statement smt=c.createStatement();
+											
+											
+											
+											smt.executeUpdate(
+									"insert into juegos_biblioteca "
+					+ "values('"+ventana.usuarioLogado.getNombre()+"','"+juego.getNombre()+"');");
+											ventana.usuarioLogado.getBiblioteca().put(juego.getNombre(), juego);
+											
+											
+								
+											
+											smt.close();
+											
+											c.close();
+									
 									JOptionPane.showMessageDialog(ventana,
 											"¡Que lo disfrutes!","Éxito",
 											JOptionPane.INFORMATION_MESSAGE);
@@ -207,11 +227,7 @@ public class PantallaTienda extends JPanel{
 								
 							
 								
-							//}
-							
-							
-							
-						//}
+						
 					}
 				});
 				
@@ -232,10 +248,47 @@ public class PantallaTienda extends JPanel{
 				botonDeseados.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent e) {
-						JOptionPane.showMessageDialog(ventana,
-								"Se ha añadido a la lista de deseados",
-								"Deseados",
-								JOptionPane.INFORMATION_MESSAGE); 
+						try {
+							
+							if(ventana.usuarioLogado.getBiblioteca().containsKey(juego.getNombre())) {
+							JOptionPane.showMessageDialog(ventana,
+									"Tienes este juego, no puedes desearlo","Error",
+									JOptionPane.INFORMATION_MESSAGE);
+						}else {
+							
+							
+							Connection c= DriverManager.getConnection(
+									"jdbc:mysql://127.0.0.1:3306/dropgames",
+									"root","admin");
+									Statement smt=c.createStatement();
+									
+									
+									
+									smt.executeUpdate(
+							"insert into juegos_deseados "
+			+ "values('"+ventana.usuarioLogado.getNombre()+"','"+juego.getNombre()+"');");
+									ventana.usuarioLogado.getBiblioteca().put(juego.getNombre(), juego);
+									
+									
+						
+									
+									smt.close();
+									
+									c.close();
+							
+									JOptionPane.showMessageDialog(ventana,
+											"Se ha añadido a la lista de deseados",
+											"Deseados",
+											JOptionPane.INFORMATION_MESSAGE);
+								
+							
+							
+						}
+							
+						} catch (SQLException e1) {
+							JOptionPane.showMessageDialog(ventana,e1.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+						}
+						
 						 
 					}
 				});
@@ -249,13 +302,11 @@ public class PantallaTienda extends JPanel{
 					public void mouseClicked(MouseEvent e) {
 						JOptionPane.showMessageDialog(ventana,
 								"Precio: "+String.valueOf(juego.getPrecio())+"\n"+
-								juego.getDescripcion()+","+"\n"+
-								juego.getGenero().toString()+","+
-								//juego.getFechaLanzamiento().toString()+","+
-								//juego.getLenguaje().toString()+","+
+								juego.getDescripcion()+"."+"\n"+
+								"Genero: "+juego.getGenero().toString()+"."+"\n"+
+								juego.getFechaLanzamiento()+"\n"+
+								juego.getLenguaje(),
 								
-								String.valueOf(juego.getValoracion())+","+
-								String.valueOf(juego.getVecesValorado()),
 								"Todos los detalles",
 								JOptionPane.INFORMATION_MESSAGE); 
 						 

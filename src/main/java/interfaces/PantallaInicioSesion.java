@@ -157,6 +157,13 @@ public class PantallaInicioSesion extends JPanel {
 						ventana.monederoActual=new Monedero(saldoMonedero,Short.valueOf(puntosMonedero));
 						}
 					
+					
+					
+					
+					
+					
+					
+					
 					smt.close();
 					smta.close();
 					conexion.close();
