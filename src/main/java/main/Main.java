@@ -14,7 +14,10 @@ import clases.Juego;
 import clases.Tienda;
 import enumeraciones.Genero;
 import interfaces.Ventana;
-
+/**
+ * Clase principal que lanza el programa.
+ * @author Ismael Paloma Narváez
+ */
 public class Main {
 
 	public static void main(String[] args) {

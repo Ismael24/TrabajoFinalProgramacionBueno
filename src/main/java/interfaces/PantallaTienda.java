@@ -42,30 +42,30 @@ import java.awt.Color;
 import javax.swing.border.BevelBorder;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-//pantalla de la tienda
-public class PantallaTienda extends JPanel{
+
+/**
+ * Clase que representa la ventana de la pantalla tienda , comentaré lo destacado, el resto es diseño visual de la ventana.
+ * @author Ismael Paloma Narváez
+ */
+public class PantallaTienda extends JPanel {
 	private Ventana ventana;
 
 	public PantallaTienda(Ventana v) {
 		setBackground(new Color(0, 0, 51));
-		
-		this.ventana=v;
+
+		this.ventana = v;
 		v.setResizable(false);
 		setLayout(new BorderLayout(0, 0));
-		
-		final HashMap<String,Juego> todosJuegos = new HashMap<>();
-		
-		
-		
-		
-		
+
+		final HashMap<String, Juego> todosJuegos = new HashMap<>();
+
 		BufferedImage imgCaratula = null;
-		
+
 		JPanel panel = new JPanel();
 		panel.setBorder(null);
 		panel.setBackground(new Color(153, 102, 204));
 		add(panel, BorderLayout.WEST);
-		
+
 		JButton botonVolver = new JButton("Volver");
 		botonVolver.setFont(new Font("Yu Gothic Medium", Font.BOLD, 11));
 		botonVolver.addMouseListener(new MouseAdapter() {
@@ -80,168 +80,129 @@ public class PantallaTienda extends JPanel{
 			}
 		});
 		panel.add(botonVolver);
-		
-		
-		
-		
-		
+
 		JLabel labelDropGames = new JLabel("DropGames");
 		labelDropGames.setBackground(new Color(0, 0, 51));
 		labelDropGames.setForeground(Color.LIGHT_GRAY);
 		labelDropGames.setFont(new Font("Yu Gothic Medium", Font.BOLD, 33));
 		labelDropGames.setHorizontalAlignment(SwingConstants.CENTER);
 		add(labelDropGames, BorderLayout.NORTH);
-		
+
 		JLabel labelJuegos = new JLabel("Tienda");
 		labelJuegos.setBackground(new Color(0, 0, 51));
 		labelJuegos.setForeground(Color.LIGHT_GRAY);
 		labelJuegos.setHorizontalAlignment(SwingConstants.CENTER);
 		labelJuegos.setFont(new Font("Yu Gothic Medium", Font.BOLD, 33));
 		add(labelJuegos, BorderLayout.SOUTH);
-		
-		
+
 		JPanel panelListaJuegos = new JPanel();
 		panelListaJuegos.setBorder(null);
 		panelListaJuegos.setForeground(new Color(0, 0, 0));
 		panelListaJuegos.setBackground(new Color(153, 102, 204));
 		panelListaJuegos.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		
 
 		JScrollPane scrollListaJuegos = new JScrollPane(panelListaJuegos);
 		add(scrollListaJuegos, BorderLayout.CENTER);
-		
+
 		try {
-			Connection conexion=
-					DriverManager.getConnection(
-"jdbc:mysql://127.0.0.1:3306/dropgames","root","admin"
-							);
-			Statement smt=conexion.createStatement();
-			
-			ResultSet resultSetJuegos=smt.executeQuery(
-					"select * from juego"
-					);
-			while(resultSetJuegos.next()) {
+			//conectamos con la base de datos para sacar todos los datos de la clase juego y poder mostrar lo que nos interese gráficamente en la ventana
+			Connection conexion = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dropgames", "root", "admin");
+			Statement smt = conexion.createStatement();
+
+			ResultSet resultSetJuegos = smt.executeQuery("select * from juego");
+			//todo se realizará mediante un bucle para que nos muestre tanto los juegos como sus botones y acciones de forma individual
+			while (resultSetJuegos.next()) {
 
 				JPanel panelJuego = new JPanel();
 				panelJuego.setLayout(new BorderLayout(0, 0));
 				try {
-					imgCaratula = ImageIO.read(new File("imgs\\"+resultSetJuegos.getString("nombre")+".jpg"));
+					imgCaratula = ImageIO.read(new File("imgs\\" + resultSetJuegos.getString("nombre") + ".jpg"));
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				String nombre=resultSetJuegos.getString("nombre");
-				String descripcion=resultSetJuegos.getString("descripcion");
-				float precio=resultSetJuegos.getFloat("precio");
-				String lenguaje=resultSetJuegos.getString("lenguaje");
-				String genero=resultSetJuegos.getString("genero");
-				short duracion=resultSetJuegos.getShort("duracion");
-				String fecha=resultSetJuegos.getString("fechaLanzamiento");
-				
-				
-				
-				
-				final Juego juego=new Juego(nombre,imgCaratula,descripcion,precio,lenguaje,Genero.fromString(genero),duracion,fecha);
+				String nombre = resultSetJuegos.getString("nombre");
+				String descripcion = resultSetJuegos.getString("descripcion");
+				float precio = resultSetJuegos.getFloat("precio");
+				String lenguaje = resultSetJuegos.getString("lenguaje");
+				String genero = resultSetJuegos.getString("genero");
+				short duracion = resultSetJuegos.getShort("duracion");
+				String fecha = resultSetJuegos.getString("fechaLanzamiento");
+
+				final Juego juego = new Juego(nombre, imgCaratula, descripcion, precio, lenguaje,
+						Genero.fromString(genero), duracion, fecha);
 				todosJuegos.put(nombre, juego);
-				
+
 				JLabel labelImgPrincipal = new JLabel();
 				labelImgPrincipal.setIcon(new ImageIcon(imgCaratula));
 				panelJuego.add(labelImgPrincipal, BorderLayout.CENTER);
-				
-				
+
 				JButton botonComprarJuego = new JButton("Comprar");
 				botonComprarJuego.setFont(new Font("Yu Gothic Medium", Font.BOLD, 11));
 				botonComprarJuego.setBackground(new Color(153, 153, 204));
 				botonComprarJuego.addMouseListener(new MouseAdapter() {
 					@Override
-				
+
 					public void mouseClicked(MouseEvent e) {
-						
-							
-								
-								try {
-									
-									if(ventana.usuarioLogado.getBiblioteca().containsKey(juego.getNombre())) {
-									JOptionPane.showMessageDialog(ventana,
-											"Ya tienes este juego","Error",
-											JOptionPane.INFORMATION_MESSAGE);
-								}else {
-									if(ventana.monederoActual.getSaldo()>=juego.getPrecio()) {
-									ventana.monederoActual.setSaldo((float)(ventana.monederoActual.getSaldo()-juego.getPrecio()));
-									Connection conexion=
-											DriverManager.getConnection(
-														"jdbc:mysql://127.0.0.1:3306/dropgames","root","admin"
-													);
-									
-									Statement smta=conexion.createStatement();
-									
-									
-									smta.executeUpdate(
-											"UPDATE monedero SET saldo = '"+ventana.monederoActual.getSaldo()+"' WHERE nombreUsuario = '"+ventana.usuarioLogado.getNombre()+"'");
-									
-									
-									
-									
-									
-									
-									
+//acción para comprar un juego, comprobamos si ya lo tiene y si no es el caso procedemos a restarle el saldo y añadirlo a la biblioteca
+						//, a su vez realizamos un update para guardar el nuevo saldo y demas, si el usuario no tiene saldo suficiente no le dejará efectuar el pago
+						try {
+
+							if (ventana.usuarioLogado.getBiblioteca().containsKey(juego.getNombre())) {
+								JOptionPane.showMessageDialog(ventana, "Ya tienes este juego", "Error",
+										JOptionPane.INFORMATION_MESSAGE);
+							} else {
+								if (ventana.monederoActual.getSaldo() >= juego.getPrecio()) {
+									ventana.monederoActual
+											.setSaldo((float) (ventana.monederoActual.getSaldo() - juego.getPrecio()));
+									Connection conexion = DriverManager
+											.getConnection("jdbc:mysql://127.0.0.1:3306/dropgames", "root", "admin");
+
+									Statement smta = conexion.createStatement();
+
+									smta.executeUpdate("UPDATE monedero SET saldo = '"
+											+ ventana.monederoActual.getSaldo() + "' WHERE nombreUsuario = '"
+											+ ventana.usuarioLogado.getNombre() + "'");
+
 									smta.close();
 									conexion.close();
-									
-									Connection c= DriverManager.getConnection(
-											"jdbc:mysql://127.0.0.1:3306/dropgames",
-											"root","admin");
-											Statement smt=c.createStatement();
-											
-											
-											
-											smt.executeUpdate(
-									"insert into juegos_biblioteca "
-					+ "values('"+ventana.usuarioLogado.getNombre()+"','"+juego.getNombre()+"');");
-											ventana.usuarioLogado.getBiblioteca().put(juego.getNombre(), juego);
-											
-											
-								
-											
-											smt.close();
-											
-											c.close();
-									
+
+									Connection c = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dropgames",
+											"root", "admin");
+									Statement smt = c.createStatement();
+
+									smt.executeUpdate("insert into juegos_biblioteca " + "values('"
+											+ ventana.usuarioLogado.getNombre() + "','" + juego.getNombre() + "');");
+									ventana.usuarioLogado.getBiblioteca().put(juego.getNombre(), juego);
+
+									smt.close();
+
+									c.close();
+									ventana.usuarioLogado.getBiblioteca().put(juego.getNombre(), juego);
 									JOptionPane.showMessageDialog(ventana,
-											"¡Que lo disfrutes!","Éxito",
+											"¡Que lo disfrutes!, recuerda reiniciar el programa para que te aparezca",
+											"Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+								} else {
+									JOptionPane.showMessageDialog(ventana,
+											"No tienes saldo suficiente, acude a la zona usuario", "Error",
 											JOptionPane.INFORMATION_MESSAGE);
-										
-									
-									}else {
-										JOptionPane.showMessageDialog(ventana,
-												"No tienes saldo suficiente, acude a la zona usuario","Error",
-												JOptionPane.INFORMATION_MESSAGE);
-									}
 								}
-									
-								} catch (SQLException e1) {
-									JOptionPane.showMessageDialog(ventana,e1.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
-								}
-								
-								
-								
-							
-								
-						
+							}
+
+						} catch (SQLException e1) {
+							JOptionPane.showMessageDialog(ventana, e1.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+						}
+
 					}
 				});
-				
-				
-				
+
 				panelJuego.add(botonComprarJuego, BorderLayout.NORTH);
-				
-				
-				
+
 				JPanel panelInferior = new JPanel();
 				panelInferior.setBackground(new Color(153, 102, 204));
 				panelJuego.add(panelInferior, BorderLayout.SOUTH);
-				
-				
+
 				JButton botonDeseados = new JButton("+");
 				botonDeseados.setFont(new Font("Yu Gothic Medium", Font.BOLD, 11));
 				botonDeseados.setBackground(new Color(153, 153, 204));
@@ -249,101 +210,67 @@ public class PantallaTienda extends JPanel{
 					@Override
 					public void mouseClicked(MouseEvent e) {
 						try {
-							
-							if(ventana.usuarioLogado.getBiblioteca().containsKey(juego.getNombre())) {
-							JOptionPane.showMessageDialog(ventana,
-									"Tienes este juego, no puedes desearlo","Error",
-									JOptionPane.INFORMATION_MESSAGE);
-						}else {
-							
-							
-							Connection c= DriverManager.getConnection(
-									"jdbc:mysql://127.0.0.1:3306/dropgames",
-									"root","admin");
-									Statement smt=c.createStatement();
-									
-									
-									
-									smt.executeUpdate(
-							"insert into juegos_deseados "
-			+ "values('"+ventana.usuarioLogado.getNombre()+"','"+juego.getNombre()+"');");
-									ventana.usuarioLogado.getBiblioteca().put(juego.getNombre(), juego);
-									
-									
-						
-									
-									smt.close();
-									
-									c.close();
-							
-									JOptionPane.showMessageDialog(ventana,
-											"Se ha añadido a la lista de deseados",
-											"Deseados",
-											JOptionPane.INFORMATION_MESSAGE);
-								
-							
-							
-						}
-							
+							//acción para añadir nuestro juego a la parte de deseados del usuario, mismo funcionamiento que añadir a la biblioteca pero sin restar saldo
+
+							if (ventana.usuarioLogado.getBiblioteca().containsKey(juego.getNombre())) {
+								JOptionPane.showMessageDialog(ventana, "Tienes este juego, no puedes desearlo", "Error",
+										JOptionPane.INFORMATION_MESSAGE);
+							} else {
+
+								Connection c = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dropgames",
+										"root", "admin");
+								Statement smt = c.createStatement();
+
+								smt.executeUpdate("insert into juegos_deseados " + "values('"
+										+ ventana.usuarioLogado.getNombre() + "','" + juego.getNombre() + "');");
+								ventana.usuarioLogado.getBiblioteca().put(juego.getNombre(), juego);
+
+								smt.close();
+
+								c.close();
+
+								JOptionPane.showMessageDialog(ventana,
+										"Se ha añadido a la lista de deseados, recuerda reiniciar el programa para que te aparezca",
+										"Deseados", JOptionPane.INFORMATION_MESSAGE);
+
+							}
+
 						} catch (SQLException e1) {
-							JOptionPane.showMessageDialog(ventana,e1.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(ventana, e1.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 						}
-						
-						 
+
 					}
 				});
 				panelInferior.add(botonDeseados, BorderLayout.WEST);
-				
+
 				JButton botonDetallesJuego = new JButton("Detalles");
 				botonDetallesJuego.setFont(new Font("Yu Gothic Medium", Font.BOLD, 11));
 				botonDetallesJuego.setBackground(new Color(153, 153, 204));
 				botonDetallesJuego.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent e) {
+						//accion que abre una ventana emergente con algunos datos interesantes sobre el juego
 						JOptionPane.showMessageDialog(ventana,
-								"Precio: "+String.valueOf(juego.getPrecio())+"\n"+
-								juego.getDescripcion()+"."+"\n"+
-								"Genero: "+juego.getGenero().toString()+"."+"\n"+
-								juego.getFechaLanzamiento()+"\n"+
-								juego.getLenguaje(),
-								
-								"Todos los detalles",
-								JOptionPane.INFORMATION_MESSAGE); 
-						 
+								"Precio: " + String.valueOf(juego.getPrecio()) + "\n" + juego.getDescripcion() + "."
+										+ "\n" + "Genero: " + juego.getGenero().toString() + "." + "\n"
+										+ juego.getFechaLanzamiento() + "\n" + juego.getLenguaje(),
+
+								"Todos los detalles", JOptionPane.INFORMATION_MESSAGE);
+
 					}
 				});
 				panelInferior.add(botonDetallesJuego, BorderLayout.EAST);
 				panelListaJuegos.add(panelJuego);
-				
-				
-				
-				}
-			
+
+			}
+
 			smt.close();
 			conexion.close();
-			
-			
-		} catch (SQLException  | NombreVacioException e1) {
-			JOptionPane.showMessageDialog(ventana,e1.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
-		}
-		
-		
-		
-		
-		
-		
-		
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-}
 
+		} catch (SQLException | NombreVacioException e1) {
+			JOptionPane.showMessageDialog(ventana, e1.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+		}
+
+	}
+
+}
